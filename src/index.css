@@ -1,19 +1,25 @@
 :root {
     --primary-blue: #2e51a2;
-    --secondary:#e1e7f5;
+    --secondary: #e1e7f5;
+    --gray:	#f6f6f6;
 }
-body{
+
+body {
     padding: 1rem;
     overflow-x: hidden;
+    font-family: 'Raleway';
 }
-main{
+
+main {
     max-width: 75dvw;
     overflow: hidden;
 }
-#sideBar{
+
+#sideBar {
     width: 20dvw;
     background-color: var(--secondary);
 }
+
 #loading {
     width: 100dvw;
     height: 100dvh;
@@ -21,8 +27,13 @@ main{
     position: absolute;
     bottom: 0;
     right: 0;
+    z-index: 999;
 }
-
+nav{
+    position: fixed;
+    top: 0;
+    right: 0;
+}
 nav img {
     max-width: 10dvw;
     filter: blur(2px);
@@ -44,13 +55,43 @@ nav .pagesbtn {
     border: none;
     outline: none;
 }
+.offcanvas{
+    width: 50dvw !important;
+    display: none;
+}
+#canvas0{
+    background-color: var(--secondary);
+}
+nav .pagesbtn0 {
+    background-color: var(--secondary);
+    text-decoration: none !important;
+    box-shadow: inset 0 0 0 0 var(--primary-blue);
+    transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+    color: black !important;
+    border: none;
+    outline: none;
+    border-bottom: .4px solid var(--gray);
+}
 
 nav .pagesbtn:hover {
     box-shadow: inset 0 48px 0 0 var(--primary-blue);
     transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
     color: white !important;
 }
-#flex1{
+nav .pagesbtn0:hover {
+    box-shadow: inset 0 48px 0 0 var(--primary-blue);
+    transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+    color: white !important;
+}
+#nav1{
+    display: none;
+    background-color: var(--primary-blue);
+}
+#nav1 a {
+    text-decoration: none;
+}
+
+#flex1 {
     /* display: flex; */
     width: fit-content;
     /* gap: 1rem; */
@@ -58,7 +99,8 @@ nav .pagesbtn:hover {
     animation: scroll 96s linear forwards;
     animation-delay: 4s;
 }
-#flex2{
+
+#flex2 {
     /* display: flex; */
     width: fit-content;
     /* gap: 1rem; */
@@ -66,38 +108,44 @@ nav .pagesbtn:hover {
     animation: scroll 96s linear forwards;
     animation-delay: 4s;
 }
+
 /* #bigBox1{
 } */
-.smallbigBox1{
+.smallbigBox1 {
     max-height: 50dvh;
     overflow: scroll;
     scrollbar-width: none;
     font-size: 10px;
 }
-.smallbigBox2{
+
+.smallbigBox2 {
     max-height: 50dvh;
     overflow: scroll;
     scrollbar-width: none;
     font-size: 10px;
 }
-.topAnimeImg{
+
+.topAnimeImg {
     aspect-ratio: 2/3;
     object-fit: cover;
     height: 8dvh;
 }
-.textBox{
-    background-image: linear-gradient(to top,#fff,transparent);
+
+.textBox {
+    background-image: linear-gradient(to top, #fff, transparent);
     height: 80%;
 }
-.boxText { 
+
+.boxText {
     font-size: 12px;
 }
+
 .loader {
     transform: rotateZ(45deg);
     /* perspective: 1000px; */
     perspective: 360px;
     border-radius: 50%;
-    height:24dvh ;
+    height: 24dvh;
     width: 24dvh;
     color: #fff;
 }
@@ -121,14 +169,17 @@ nav .pagesbtn:hover {
     transform: rotateY(70deg);
     animation-delay: .4s;
 }
+
 @keyframes scroll {
-    from{
+    from {
         transform: translateX(0%);
     }
-    to{
+
+    to {
         transform: translateX(-110%);
     }
 }
+
 @keyframes rotate {
     0% {
         transform: translate(-50%, -50%) rotateZ(0deg);
@@ -182,5 +233,29 @@ nav .pagesbtn:hover {
 
     87% {
         box-shadow: .2em -.2em 0 0 currentcolor;
+    }
+}
+
+@media (max-width:720px) {
+    body{
+        padding: 0;
+    }
+    #nav0 {
+        display: none !important;
+    }
+    #nav1 {
+        display: flex !important;
+    }
+
+    main {
+        max-width: 100dvw;
+    }
+
+    #sideBar {
+        display: none !important;
+    }
+
+    .title {
+        text-align: center;
     }
 }

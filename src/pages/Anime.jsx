@@ -1,17 +1,19 @@
 import React, { useState } from 'react'
-
+import Loading from '../Loading.jsx'
 const Anime = () => {
-  const [loading,isLoading] =  useState(true)
-  if(loading){
+  const [load, isLoad] = useState(true)
+  if (load) {
     setTimeout(() => {
-      isLoading(false)
-    }, 1000);
+      isLoad(false)
+    }, 500);
     return (
-      <h1>Tunggu Sebentar</h1>
+      <Loading />
     )
   }
   return (
-    <h1>Anime</h1>
+    <div className="p-2">
+      <h1>Anime</h1>
+    </div>
   )
 }
 
