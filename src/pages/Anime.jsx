@@ -73,7 +73,7 @@ const Anime = () => {
     )
   }
   return (
-    <div className="p-2 px-0">
+    <div className="p-2 px-0 animeBody mx-auto">
       <h1>Anime</h1>
       <Flex>
         <select name="searchSeason" id="searchSeason" className='form-select' onChange={(e) => handleSeason(e)}>

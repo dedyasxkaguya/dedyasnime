@@ -32,22 +32,22 @@ const Navbar = () => {
                         <ul className="dropdown-menu">
                             <li>
                                 <Link to={'/anime'} className='dropdown-item'>
-                                Seasonal Anime
+                                    Seasonal Anime
+                                </Link>
+                            </li>
+                            <li>
+                                <Link to={'/anime/top'} className='dropdown-item'>
+                                    Top Anime
                                 </Link>
                             </li>
                             <li>
                                 <Link to={'/anime'} className='dropdown-item'>
-                                Top Anime
+                                    Favorites Anime
                                 </Link>
                             </li>
                             <li>
-                                <Link to={'/anime'} className='dropdown-item'>
-                                Favorites Anime
-                                </Link>
-                            </li>
-                            <li>
-                                <Link to={'/anime'} className='dropdown-item'>
-                                Search Anime
+                                <Link to={'/anime/search'} className='dropdown-item'>
+                                    Search Anime
                                 </Link>
                             </li>
                         </ul>
@@ -134,12 +134,39 @@ const Navbar = () => {
                                 <i className="bi bi-chevron-right"></i>
                             </button>
                         </Link>
-                        <Link to={"/anime"}>
-                            <button className='pagesbtn0 w-100 p-2 text-decoration-none text-start fw-semibold d-flex justify-content-between' onClick={() => handleRefresh()}>
+                        {/* <Link to={"/anime"}> */}
+                            {/* <button className='pagesbtn0 w-100 p-2 text-decoration-none text-start fw-semibold d-flex justify-content-between' onClick={() => handleRefresh()}>
                                 Anime
                                 <i className="bi bi-chevron-right"></i>
-                            </button>
-                        </Link>
+                            </button> */}
+                            <div className="dropdown w-100">
+                                <button className="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Anime
+                                </button>
+                                <ul className="dropdown-menu">
+                                    <li>
+                                        <Link to={'/anime'} className='dropdown-item' onClick={() => handleRefresh()}>
+                                            Seasonal Anime
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link to={'/anime/top'} className='dropdown-item' onClick={() => handleRefresh()}>
+                                            Top Anime
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link to={'/anime'} className='dropdown-item' onClick={() => handleRefresh()}>
+                                            Favorites Anime
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link to={'/anime'} className='dropdown-item' onClick={() => handleRefresh()}>
+                                            Search Anime
+                                        </Link>
+                                    </li>
+                                </ul>
+                            </div>
+                        {/* </Link> */}
                         <Link to={"/manga"}>
                             <button className='pagesbtn0 w-100 p-2 text-decoration-none text-start fw-semibold d-flex justify-content-between' onClick={() => handleRefresh()}>
                                 Manga
