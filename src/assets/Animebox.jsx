@@ -2,7 +2,7 @@ import React from 'react'
 
 const Animebox = (props) => {
     return (
-        <div className='d-flex flex-column my-2 shadow rounded-4 p-1 pt-4'>
+        <div className='d-flex flex-column my-2 shadow rounded-4 p-1 pt-4 justify-content-between'>
             <div className="text-center">
                 <h5 className='textTitle fw-semibold m-0'>{props.title}</h5>
                 <h6 className='text-secondary fw-light'>{props.engTitle}</h6>
@@ -20,9 +20,10 @@ const Animebox = (props) => {
                     )
                 })}
             </div>
-            <div className="d-flex">
+            <div className="d-flex justify-content-center">
                 <img src={props.image} alt="" className='animeImg m-2 rounded-3' />
-                <span className='animeDesc'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae maiores eius reprehenderit possimus, unde, numquam nesciunt voluptatem quas mollitia quia alias laboriosam modi temporibus porro. Autem a suscipit quibusdam, alias ab porro ipsa cupiditate veritatis, excepturi illo libero facere eaque esse accusamus? Alias exercitationem error, deserunt voluptatibus nesciunt inventore! Quo, eos! Enim quidem aliquid ullam, commodi totam ea molestiae! Deserunt, soluta nihil voluptatum dignissimos at mollitia quasi?<br /><br />
+                <span className='animeDesc'>{props.description}
+                    <br /><br />
                     <div className='infoNime d-flex flex-column p-2'>
                         <span className='infoSpan'>
                             <b>Studios : </b>

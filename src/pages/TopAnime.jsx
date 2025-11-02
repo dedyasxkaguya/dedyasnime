@@ -33,29 +33,44 @@ const TopAnime = () => {
           <h5 className='fw-semibold m-0'>
             Top Anime Series
           </h5>
-          <table className='table table-striped'>
-            <thead>
-              <tr className='animeTableHead'>
-                <td scope='col'>No</td>
-                <td scope='col' className='tableTitle'>Title</td>
-                <td scope='col'>Score</td>
-                <td scope='col'>Member</td>
-                <td scope='col' className='tableStatus'>Status</td>
-              </tr>
-            </thead>
-            <tbody>
-              {anime.map((a) => {
-                return (
-                  <AnimeTable title={a.title} images={a.images.webp.large_image_url} rank={a.rank} episodes={a.episodes} type={a.type} members={a.members} aired={a.aired.string} score={a.score} favorites={a.favorites}/>
-                )
-              })}
-              {anime1.map((a) => {
-                return (
-                  <AnimeTable title={a.title} images={a.images.webp.large_image_url} rank={a.rank} episodes={a.episodes} type={a.type} members={a.members} aired={a.aired.string} score={a.score} favorites={a.favorites}/>
-                )
-              })}
-            </tbody>
-          </table>
+                    <div className="tableContainer">
+            <table className='table table-striped mx-auto'>
+              <thead>
+                <tr className='animeTableHead'>
+                  <td scope='col'>No</td>
+                  <td scope='col' className='tableTitle'>Title</td>
+                  <td scope='col'>Score</td>
+                  <td scope='col'>Member</td>
+                  <td scope='col' className='tableStatus'>Status</td>
+                </tr>
+              </thead>
+              <tbody>
+                {anime.map((a) => {
+                  return (
+                    <AnimeTable title={a.title} images={a.images.webp.large_image_url} rank={a.rank} episodes={a.episodes} type={a.type} members={a.members} aired={a.aired.string} score={a.score} favorites={a.favorites} />
+                  )
+                })}
+              </tbody>
+            </table>
+            <table className='table table-striped mx-auto'>
+              <thead>
+                <tr className='animeTableHead'>
+                  <td scope='col'>No</td>
+                  <td scope='col' className='tableTitle'>Title</td>
+                  <td scope='col'>Score</td>
+                  <td scope='col'>Member</td>
+                  <td scope='col' className='tableStatus'>Status</td>
+                </tr>
+              </thead>
+              <tbody>
+                {anime1.map((a) => {
+                  return (
+                    <AnimeTable title={a.title} images={a.images.webp.large_image_url} rank={a.rank} episodes={a.episodes} type={a.type} members={a.members} aired={a.aired.string} score={a.score} favorites={a.favorites} />
+                  )
+                })}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>

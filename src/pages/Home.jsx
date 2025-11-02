@@ -92,7 +92,7 @@ const Home = () => {
         <h4>Welcome To DedyasNimeList</h4>
         <hr />
         <div className="d-flex justify-content-center gap-2">
-          <main className='p-2 border border-secondary-subtle m-2 rounded-4'>
+          <main className='p-4 border border-secondary-subtle m-2 rounded-4'>
             <h4 className='title text-capitalize'>{season} 2025 Anime</h4>
             {/* <Flex dir="col"> */}
             {/* <i onClick={(e) => handleLeftFlex(e)}
@@ -142,8 +142,11 @@ const Home = () => {
                   return (
                     <div className="d-flex text-xs">
                       <img src={a.images.webp.large_image_url} alt="" className='topAnimeImg mx-2' />
-                      <div className="d-flex">
-                        <p>{a.title} #({a.rank})</p>
+                      <div className="d-flex flex-column">
+                        <span><b>{a.title}</b> Rank #({a.rank})</span>
+                        <span>{a.type} {a.episodes} Eps
+                          <i className='bi bi-star mx-1'></i>{a.score}</span>
+                        <span>{a.members} Members</span>
                       </div>
                     </div>
                   )

@@ -103,7 +103,7 @@ const Anime = () => {
         {
           animes.map((a) => {
             return (
-              <Animebox title={a.title} image={a.images.webp.large_image_url} engTitle={a.title_english} status={a.aired.string} eps={a.episodes} epsd={a.duration} genres={a.genres} studios={a.studios} source={a.source} demographic={a.demographics} themes={a.themes} score={a.score} members={a.members}/>
+              <Animebox title={a.title} image={a.images.webp.large_image_url} engTitle={a.title_english} status={a.aired.string} eps={a.episodes} epsd={a.duration} genres={a.genres} studios={a.studios} source={a.source} demographic={a.demographics} themes={a.themes} score={a.score} members={a.members} description={a.synopsis}/>
             )
           })
         }

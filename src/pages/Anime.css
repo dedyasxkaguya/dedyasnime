@@ -3,6 +3,7 @@
     --secondary: #e1e7f5;
     --gray: #f6f6f6;
 }
+
 .loadingAnime {
     height: 80dvh;
     display: none;
@@ -33,11 +34,26 @@
 }
 
 .animeImg {
-    width: 18dvw;
-    max-height: 24dvh;
+    width: 12dvw;
+    height: 18dvw;
+    /* max-height: 36dvh; */
     aspect-ratio: 3/4;
     object-fit: cover;
 }
+
+.animeDesc {
+    max-width: 16dvw;
+    height: 18dvw;
+    overflow: scroll;
+    scrollbar-width: none;
+}
+.largeAnimeDesc{
+    width: 100%!important;
+    height: 18dvw;
+    overflow: scroll;
+    scrollbar-width: none;
+}
+
 .animeImgLarge {
     width: 96%;
     /* max-height: 24dvh; */
@@ -45,11 +61,6 @@
     object-fit: cover;
 }
 
-.animeDesc {
-    max-height: 24dvh;
-    overflow: scroll;
-    scrollbar-width: none;
-}
 
 .infoNime {
     background-color: var(--secondary);
@@ -58,57 +69,99 @@
 .infoNime .infoSpan:nth-child(even) {
     background-color: var(--gray);
 }
-.pop{
+
+.pop {
     background-color: var(--gray);
     cursor: pointer;
 }
+
 @media (max-width:1080px) {
     .grid0 {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
     }
-}
 
-@media (max-width:720px) {
-    .animeBody{
-        max-width: 90dvw;
-    }
     .animeImg {
-        width: 48dvw;
-        max-height: 36dvh;
+        width: 24dvw;
+        height: 32dvw;
+        /* max-height: 36dvh; */
         aspect-ratio: 3/4;
         object-fit: cover;
     }
+
     .animeDesc {
-        max-height: 36dvh;
+        max-width: 24dvw;
+        max-height: 32dvh;
         overflow: scroll;
         scrollbar-width: none;
     }
+
+    .tableContainer {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+@media (max-width:720px) {
+    .animeBody {
+        max-width: 90dvw;
+    }
+
+    .animeImg {
+        width: 48dvw;
+        height: 64dvw;
+        /* max-height: 36dvh; */
+        aspect-ratio: 3/4;
+        object-fit: cover;
+    }
+
+    .animeDesc {
+        max-width: 48dvw;
+        max-height: 64dvh;
+        overflow: scroll;
+        scrollbar-width: none;
+    }
+
     .grid0 {
         display: grid;
         grid-template-columns: repeat(1, 1fr);
     }
-    .tableStatus{
-        display: none;
-    }
-    .airedStr{
-        display: none;
-    }
-}
-/* Leaderboard */
 
-.leaderboardImg{
-    max-width: 10dvw;
+    .tableStatus {
+        display: none;
+    }
+
+    .airedStr {
+        display: none;
+    }
+
+    /* .tableBox{
+        max-width: 80dvw;
+    } */
 }
-.tableTitle{
+
+.tableContainer {
+    display: flex;
+}
+
+.leaderboardImg {
+    /* max-width: 10dvw; */
+    height: 16dvh;
+    aspect-ratio: 4/5;
+    object-fit: cover;
+}
+
+.tableTitle {
     max-width: 32dvw;
 }
-.animeTableHead{
+
+.animeTableHead {
     background-color: var(--secondary) !important;
 }
+
 /* Anime Search */
-.titleBg{
-    background-image: linear-gradient(to top,#fff ,transparent);
+.titleBg {
+    background-image: linear-gradient(to top, #fff, transparent);
     height: 80%;
     width: 100%;
 }

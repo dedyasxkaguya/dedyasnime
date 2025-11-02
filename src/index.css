@@ -110,6 +110,8 @@ nav .pagesbtn0:hover {
     position: relative;
     animation: scroll 96s linear forwards;
     animation-delay: 4s;
+    scrollbar-width: none;
+
 }
 
 #flex2 {
@@ -119,6 +121,8 @@ nav .pagesbtn0:hover {
     position: relative;
     animation: scroll 96s linear forwards;
     animation-delay: 4s;
+    scrollbar-width: none;
+
 }
 
 /* #bigBox1{

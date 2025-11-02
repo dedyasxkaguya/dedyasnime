@@ -9,7 +9,7 @@ const Smallbox = (props) => {
         'backgroundImage': `url(${props.img})`
     }
     return (
-        <div style={style} className=' d-flex align-items-end rounded-4 overflow-hidden'>
+        <div style={style} className=' d-flex align-items-end rounded-4'>
             <div className="textBox w-100 p-2 d-flex align-items-end">
                 <span className='boxText text-black'>{props.title}</span>
             </div>

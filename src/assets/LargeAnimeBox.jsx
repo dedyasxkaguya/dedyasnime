@@ -29,7 +29,7 @@ const LargeAnimeBox = (props) => {
                 })}
             </div>
             <div className="d-flex">
-                <span className='animeDesc'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae maiores eius reprehenderit possimus, unde, numquam nesciunt voluptatem quas mollitia quia alias laboriosam modi temporibus porro. Autem a suscipit quibusdam, alias ab porro ipsa cupiditate veritatis, excepturi illo libero facere eaque esse accusamus? Alias exercitationem error, deserunt voluptatibus nesciunt inventore! Quo, eos! Enim quidem aliquid ullam, commodi totam ea molestiae! Deserunt, soluta nihil voluptatum dignissimos at mollitia quasi?<br /><br />
+                <span className='largeAnimeDesc'>{props.description}<br /><br />
                     <div className='infoNime d-flex flex-column p-2'>
                         <span className='infoSpan'>
                             <b>Studios : </b>
