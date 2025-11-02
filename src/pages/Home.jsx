@@ -5,6 +5,12 @@ import axios from 'axios';
 import Smallbox from '../assets/Smallbox';
 import Bigbox from '../assets/Bigbox';
 
+
+//data
+import fall_anime from '../data/fall_anime_data.json'
+import News from '../assets/News';
+
+
 const Home = () => {
   const [loading, setLoading] = useState(true)
   const [anime, setAnime] = useState([])
@@ -22,31 +28,37 @@ const Home = () => {
     setTimeout(() => {
       setLoading(false)
     }, 500);
-    console.log(loading)
-    axios.get(apiUrl)
-      //GetAnime
-      .then(response => {
-        const fetchData = response.data.data
-        setAnime(fetchData)
-        console.log(anime)
-      })
+    try {
+      axios.get(apiUrl)
+        //GetAnime
+        .then(response => {
+          console.log(response)
+          const fetchData = response.data.data
+          setAnime(fetchData)
+        })
+    } catch {
+      console.log("Gagal rek")
+    }
     //GetManga
     setTimeout(() => {
-
-      axios.get(mangaUrl)
+      try {
+        axios.get(mangaUrl)
+          .then(response => {
+            const fetchData = response.data.data
+            setManga(fetchData)
+          })
+      } catch {
+        console.log("Gagal rek")
+      }
+    }, 1000);
+    //GetTopAnime
+    setTimeout(() => {
+      axios.get(topAnimeUrl)
         .then(response => {
           const fetchData = response.data.data
-          setManga(fetchData)
-          console.log(manga)
+          setTopAnime(fetchData)
         })
-    }, 500);
-    //GetTopAnime
-    axios.get(topAnimeUrl)
-      .then(response => {
-        const fetchData = response.data.data
-        setTopAnime(fetchData)
-        console.log(topAnime)
-      })
+    }, 2000);
     //GetTopManga
     setTimeout(() => {
 
@@ -54,14 +66,25 @@ const Home = () => {
         .then(response => {
           const fetchData = response.data.data
           setTopManga(fetchData)
-          console.log(topAnime)
         })
-    }, 500);
-  }, [apiUrl, mangaUrl, topAnimeUrl, topManga])
+    }, 3000);
+  }, [])
+  // }, [apiUrl, mangaUrl, topAnimeUrl, topManga])
   if (loading) {
     return (
       <Loading />
     )
+  }
+  const handleLeftFlex = (e) => {
+    let scroll = e.target.nextElementSibling.style.right
+    console.log(scroll)
+    scroll = scroll.split("%")
+    let nextScroll = Number(scroll[0]) + 80
+    if (nextScroll <= 400) {
+      console.log(nextScroll)
+      e.target.nextElementSibling.style.right = `${nextScroll}%`
+      console.log(e.target.nextElementSibling.style.right)
+    }
   }
   return (
     <>
@@ -69,8 +92,11 @@ const Home = () => {
         <h4>Welcome To DedyasNimeList</h4>
         <hr />
         <div className="d-flex justify-content-center gap-2">
-          <main>
-            <h6 className='title text-capitalize'>{season} 2025 Anime</h6>
+          <main className='p-2 border border-secondary-subtle m-2 rounded-4'>
+            <h4 className='title text-capitalize'>{season} 2025 Anime</h4>
+            {/* <Flex dir="col"> */}
+            {/* <i onClick={(e) => handleLeftFlex(e)}
+                className="bi arrow bi-chevron-right p-2 rounded-circle bg-white text-center"></i> */}
             <Flex dir="col" id="flex1">
               {anime.map((a) => {
                 return (
@@ -78,7 +104,9 @@ const Home = () => {
                 )
               })}
             </Flex>
-            <h6 className='title text-capitalize mt-4'>Manga Mirai</h6>
+            {/* <i className="bi arrow bi-chevron-left p-2 rounded-circle bg-white text-center"></i> */}
+            {/* </Flex> */}
+            <h4 className='title text-capitalize mt-4'>Manga Mirai</h4>
             <Flex dir="col" id="flex2">
               {manga.map((a) => {
                 return (
@@ -86,8 +114,10 @@ const Home = () => {
                 )
               })}
             </Flex>
+            <br />
+            <News />
           </main>
-          <section id='sideBar' className='p-2 rounded-1'>
+          <section id='sideBar' className='p-3 rounded-4 m-2'>
             <Bigbox title="Top Airing Anime" id="bigBox1">
               {
                 topAnime.map((a) => {

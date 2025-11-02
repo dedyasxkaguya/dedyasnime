@@ -1,13 +1,14 @@
 :root {
     --primary-blue: #2e51a2;
     --secondary: #e1e7f5;
-    --gray:	#f6f6f6;
+    --gray: #f6f6f6;
 }
 
 body {
     padding: 1rem;
     overflow-x: hidden;
     font-family: 'Raleway';
+    height: 700dvh;
 }
 
 main {
@@ -29,11 +30,13 @@ main {
     right: 0;
     z-index: 999;
 }
-nav{
+
+nav {
     position: fixed;
     top: 0;
     right: 0;
 }
+
 nav img {
     max-width: 10dvw;
     filter: blur(2px);
@@ -55,13 +58,16 @@ nav .pagesbtn {
     border: none;
     outline: none;
 }
-.offcanvas{
+
+.offcanvas {
     width: 50dvw !important;
     display: none;
 }
-#canvas0{
+
+#canvas0 {
     background-color: var(--secondary);
 }
+
 nav .pagesbtn0 {
     background-color: var(--secondary);
     text-decoration: none !important;
@@ -78,22 +84,28 @@ nav .pagesbtn:hover {
     transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
     color: white !important;
 }
+
 nav .pagesbtn0:hover {
     box-shadow: inset 0 48px 0 0 var(--primary-blue);
     transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
     color: white !important;
 }
-#nav1{
+
+#nav1 {
     display: none;
     background-color: var(--primary-blue);
 }
+
 #nav1 a {
     text-decoration: none;
 }
 
 #flex1 {
     /* display: flex; */
+    /* max-width: 60dvw; */
     width: fit-content;
+    overflow: scroll;
+    flex-wrap: nowrap;
     /* gap: 1rem; */
     position: relative;
     animation: scroll 96s linear forwards;
@@ -123,6 +135,23 @@ nav .pagesbtn0:hover {
     overflow: scroll;
     scrollbar-width: none;
     font-size: 10px;
+}
+
+.arrow {
+    z-index: 9;
+}
+
+.bi-chevron-left {
+    width: 2.4rem;
+    height: 2.4rem;
+    /* left: 5%; */
+}
+
+.bi-chevron-right {
+    position: relative;
+    width: 2.4rem;
+    height: 2.4rem;
+    left: 5%;
 }
 
 .topAnimeImg {
@@ -176,7 +205,7 @@ nav .pagesbtn0:hover {
     }
 
     to {
-        transform: translateX(-110%);
+        transform: translateX(-90%);
     }
 }
 
@@ -201,6 +230,7 @@ nav .pagesbtn0:hover {
 }
 
 @keyframes spin {
+
 
     0%,
     100% {
@@ -236,15 +266,26 @@ nav .pagesbtn0:hover {
     }
 }
 
+@media (max-width:1080px) {
+    #logo{
+        display: none;
+    }
+}
 @media (max-width:720px) {
-    body{
+    body {
         padding: 0;
     }
+
     #nav0 {
         display: none !important;
     }
+
     #nav1 {
         display: flex !important;
+    }
+
+    .newspage {
+        font-size: 12px;
     }
 
     main {

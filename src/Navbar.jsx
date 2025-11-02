@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import logo from './assets/logo.png'
+import Flex from './assets/Flex'
 const Navbar = () => {
     // let isMenu = false
     const handleRefresh = () => {
@@ -12,18 +13,45 @@ const Navbar = () => {
     return (
         <>
             <nav id='nav0' className='navbar p-3'>
-                <img src={logo} alt="" />
+                <img id='logo' src={logo} alt="" />
                 <div className="d-flex rounded-4 text-decoration-none p-2 shadow-lg gap-4">
                     <Link to={"/"}>
                         <button className='pagesbtn p-2 text-decoration-none rounded-3'>
                             Home
                         </button>
                     </Link>
-                    <Link to={"/anime"}>
+                    {/* <Link to={"/anime"}>
                         <button className='pagesbtn p-2 text-decoration-none rounded-3'>
                             Anime
                         </button>
-                    </Link>
+                    </Link> */}
+                    <div className="dropdown">
+                        <button className="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Anime
+                        </button>
+                        <ul className="dropdown-menu">
+                            <li>
+                                <Link to={'/anime'} className='dropdown-item'>
+                                Seasonal Anime
+                                </Link>
+                            </li>
+                            <li>
+                                <Link to={'/anime'} className='dropdown-item'>
+                                Top Anime
+                                </Link>
+                            </li>
+                            <li>
+                                <Link to={'/anime'} className='dropdown-item'>
+                                Favorites Anime
+                                </Link>
+                            </li>
+                            <li>
+                                <Link to={'/anime'} className='dropdown-item'>
+                                Search Anime
+                                </Link>
+                            </li>
+                        </ul>
+                    </div>
                     <Link to={"/manga"}>
                         <button className='pagesbtn p-2 text-decoration-none rounded-3'>
                             Manga
@@ -35,10 +63,20 @@ const Navbar = () => {
                         </button>
                     </Link>
                 </div>
-                <button type='button' id='' className='btn btn-outline-dark rounded-5 px-4 py-2'>
-                    Favorites
-                    <i className='bi bi-heart mx-2 '></i>
-                </button>
+                <Flex>
+                    {/* <button type='button' id='' className='btn btn-outline-dark rounded-5 px-4 py-2'>
+                        Favorites
+                        <i className='bi bi-heart mx-2 '></i>
+                    </button> */}
+                    {/* <div className="p-1 px-2 rounded-5 d-flex gap-2 align-items-center justify-content-start w-fit border border-black">Search */}
+                    <label htmlFor="">
+                        <Flex>
+                            <i className='bi bi-search'></i>
+                            <input type="text" name="search" id="search" className='form-control rounded-5' placeholder='search' />
+                            {/* </div> */}
+                        </Flex>
+                    </label>
+                </Flex>
             </nav>
             <nav id='nav1' className='navbar p-3'>
                 {/* <img src={logo} alt="" /> */}
@@ -83,7 +121,7 @@ const Navbar = () => {
                     <i className='bi bi-list ms-2'></i>
                 </button>
 
-                <div className="offcanvas offcanvas-end offcanvas1" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
+                <div className="offcanvas offcanvas-end offcanvas1" data-bs-scroll="true" data-bs-backdrop="false" tabIndex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
                     <div className="offcanvas-header">
                         <h5 className="offcanvas-title" id="offcanvasScrollingLabel">
                             DedyasNime menu</h5>

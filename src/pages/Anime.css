@@ -1,0 +1,83 @@
+:root {
+    --primary-blue: #2e51a2;
+    --secondary: #e1e7f5;
+    --gray: #f6f6f6;
+}
+
+.loadingAnime {
+    height: 80dvh;
+    display: none;
+}
+
+.grid0 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.textTitle {
+    color: var(--primary-blue);
+    cursor: pointer;
+}
+
+.statusBox {
+    background-color: var(--secondary);
+    cursor: pointer;
+}
+
+.genresBox {
+    background-color: var(--gray);
+    cursor: pointer;
+}
+
+.genre {
+    font-size: 12px;
+}
+
+.animeImg {
+    width: 18dvw;
+    max-height: 24dvh;
+    aspect-ratio: 3/4;
+    object-fit: cover;
+}
+
+.animeDesc {
+    max-height: 24dvh;
+    overflow: scroll;
+    scrollbar-width: none;
+}
+
+.infoNime {
+    background-color: var(--secondary);
+}
+
+.infoNime .infoSpan:nth-child(even) {
+    background-color: var(--gray);
+}
+.pop{
+    background-color: var(--gray);
+    cursor: pointer;
+}
+@media (max-width:1080px) {
+    .grid0 {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width:720px) {
+    .animeImg {
+        width: 48dvw;
+        max-height: 36dvh;
+        aspect-ratio: 3/4;
+        object-fit: cover;
+    }
+    .animeDesc {
+        max-height: 36dvh;
+        overflow: scroll;
+        scrollbar-width: none;
+    }
+    .grid0 {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
