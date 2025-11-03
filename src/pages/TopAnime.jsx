@@ -33,14 +33,14 @@ const TopAnime = () => {
           <h5 className='fw-semibold m-0'>
             Top Anime Series
           </h5>
-                    <div className="tableContainer">
+          <div className="tableContainer">
             <table className='table table-striped mx-auto'>
               <thead>
                 <tr className='animeTableHead'>
                   <td scope='col'>No</td>
                   <td scope='col' className='tableTitle'>Title</td>
                   <td scope='col'>Score</td>
-                  <td scope='col'>Member</td>
+                  <td scope='col' className='tableMember'>Member</td>
                   <td scope='col' className='tableStatus'>Status</td>
                 </tr>
               </thead>

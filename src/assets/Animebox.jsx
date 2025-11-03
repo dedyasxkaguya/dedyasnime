@@ -1,8 +1,28 @@
 import React from 'react'
 
 const Animebox = (props) => {
+    console.log(props.data)
+    let favArray = []
+    if (localStorage.getItem("favNime")) {
+        favArray = JSON.parse(localStorage.getItem("favNime"))
+        console.log("Data berhasil diambil dari memory")
+    } else {
+        // favArray = JSON.parse(localStorage.getItem("favNime"))
+        console.log("Data tidak ada di memory")
+    }
+    const handleFav = (e) => {
+        if(!favArray.includes(props.data)){
+            favArray.push(props.data)
+            console.log(props.data)
+            localStorage.setItem("favNime",JSON.stringify(favArray))
+            e.target.classList.remove("btn-light")
+            e.target.classList.add("btn-dark")
+        }else{
+            console.log("Data Sudah Ada Di Memory")
+        }
+    }
     return (
-        <div className='d-flex flex-column my-2 shadow rounded-4 p-1 pt-4 justify-content-between'>
+        <div id={props.mal_id} className='d-flex flex-column my-2 shadow rounded-4 p-1 pt-4 justify-content-between'>
             <div className="text-center">
                 <h5 className='textTitle fw-semibold m-0'>{props.title}</h5>
                 <h6 className='text-secondary fw-light'>{props.engTitle}</h6>
@@ -30,27 +50,27 @@ const Animebox = (props) => {
                             {props.studios.map((studio) => {
                                 return (
                                     <span>
-                                        {studio.name} , 
+                                        {studio.name} ,
                                     </span>
                                 )
                             })}
                         </span>
                         <span className='infoSpan'>
-                            <b>Source : </b> 
+                            <b>Source : </b>
                             {props.source}
                         </span>
                         <span className='infoSpan'>
-                            <b>Themes : </b> 
-                            {props.themes.map((theme)=>{
-                                return(
+                            <b>Themes : </b>
+                            {props.themes.map((theme) => {
+                                return (
                                     <span>{theme.name} ,</span>
                                 )
                             })}
                         </span>
                         <span className='infoSpan'>
-                            <b>Demographic : </b> 
-                            {props.demographic.map((demo)=>{
-                                return(
+                            <b>Demographic : </b>
+                            {props.demographic.map((demo) => {
+                                return (
                                     <span>{demo.name}</span>
                                 )
                             })}
@@ -58,7 +78,7 @@ const Animebox = (props) => {
                     </div>
                 </span>
             </div>
-            <div className="d-flex pop justify-content-around align-items-center pb-2 rounded-3">
+            <div className="d-flex pop justify-content-around align-items-center py-2 rounded-3">
                 <span>
                     <i className="bi bi-star mx-2"></i>
                     {props.score}
@@ -67,7 +87,8 @@ const Animebox = (props) => {
                     <i className="bi bi-person-fill mx-2"></i>
                     {props.members}
                 </span>
-                <button type="button" className='btn btn-light'>
+                <button type="button" className='btn btn-light'
+                    onClick={(e) => handleFav(e)}>
                     <i className='bi bi-heart mx-2'></i>
                     Add Favorites
                 </button>

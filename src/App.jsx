@@ -7,6 +7,7 @@ import TopAnime from './pages/TopAnime'
 import Manga from './pages/Manga'
 import Character from './pages/Character'
 import SearchAnime from './pages/SearchAnime'
+import FavoriteAnime from './pages/FavoriteAnime'
 
 function App() {
 
@@ -18,6 +19,7 @@ function App() {
         <Route path='/anime' element={<Anime />}></Route>
         <Route path='/anime/top' element={<TopAnime/>}></Route>
         <Route path='/anime/search' element={<SearchAnime/>}></Route>
+        <Route path='/anime/fav' element={<FavoriteAnime/>}></Route>
         <Route path='/manga' element={<Manga />}></Route>
         <Route path='/characters' element={<Character />}></Route>
       </Routes>

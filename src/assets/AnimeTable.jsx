@@ -27,8 +27,8 @@ const AnimeTable = (props) => {
                     {props.score}
                 </div>
             </td>
-            <td>
-                <div className="my-4">
+            <td className='tableMember'>
+                <div className="my-4 ">
                     <i className='bi bi-bookmark-fill mx-2'></i>
                     {props.favorites}
                 </div>

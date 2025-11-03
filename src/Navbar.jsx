@@ -41,7 +41,7 @@ const Navbar = () => {
                                 </Link>
                             </li>
                             <li>
-                                <Link to={'/anime'} className='dropdown-item'>
+                                <Link to={'/anime/fav'} className='dropdown-item'>
                                     Favorites Anime
                                 </Link>
                             </li>

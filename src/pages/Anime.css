@@ -36,7 +36,7 @@
 .animeImg {
     width: 12dvw;
     height: 18dvw;
-    /* max-height: 36dvh; */
+    /* max-height: 36dvh;  */
     aspect-ratio: 3/4;
     object-fit: cover;
 }
@@ -92,7 +92,8 @@
 
     .animeDesc {
         max-width: 24dvw;
-        max-height: 32dvh;
+        height: 32dvw !important;
+        /* height: 100%; */
         overflow: scroll;
         scrollbar-width: none;
     }
@@ -101,7 +102,9 @@
         display: flex;
         flex-direction: column;
     }
-
+    .tableMember{
+        display: none;
+    }
     #charGrid {
         display: grid;
         grid-template-columns: repeat(2, 1fr) !important;
@@ -123,11 +126,13 @@
 
     .animeDesc {
         max-width: 48dvw;
-        max-height: 64dvh;
+        height: 64dvw !important;
         overflow: scroll;
         scrollbar-width: none;
     }
-
+    .tableContainer{
+        font-size: 12px;
+    }
     .grid0 {
         display: grid;
         grid-template-columns: repeat(1, 1fr);

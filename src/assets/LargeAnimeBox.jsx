@@ -6,6 +6,11 @@ const LargeAnimeBox = (props) => {
         "height": "64dvh",
         "backgroundSize": "cover"
     }
+    props.genres.map((g)=>{
+        if(g.name.toLowerCase().includes("ecchi")){
+            return
+        }
+    })
     return (
         <div className='d-flex flex-column my-2 shadow rounded-4 p-1 justify-content-center'>
             {/* <img src={props.image} alt="" className='animeImgLarge m-2 rounded-3' /> */}

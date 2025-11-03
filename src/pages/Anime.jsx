@@ -36,31 +36,31 @@ const Anime = () => {
       })
   }, [season, year]);
   const handleYear = (e) => {
-    document.getElementById("loading0").style.display='flex'
+    document.getElementById("loading0").style.display = 'flex'
     setYear(e.target.value)
     setTimeout(() => {
       axios.get(`https://api.jikan.moe/v4/seasons/${e.target.value}/${season}`)
-      .then(res => {
-        setAnimes(res.data.data)
-        console.log("wait a minute")
-      })
+        .then(res => {
+          setAnimes(res.data.data)
+          console.log("wait a minute")
+        })
     }, 1000);
     setTimeout(() => {
-      document.getElementById("loading0").style.display='none'
+      document.getElementById("loading0").style.display = 'none'
     }, 2000);
   }
   const handleSeason = (e) => {
-    document.getElementById("loading0").style.display='flex'
+    document.getElementById("loading0").style.display = 'flex'
     setSeason(e.target.value)
     setTimeout(() => {
       axios.get(`https://api.jikan.moe/v4/seasons/${year}/${e.target.value}`)
-      .then(res => {
-        setAnimes(res.data.data)
-        console.log("wait a minute")
-      })
+        .then(res => {
+          setAnimes(res.data.data)
+          console.log("wait a minute")
+        })
     }, 1000);
     setTimeout(() => {
-      document.getElementById("loading0").style.display='none'
+      document.getElementById("loading0").style.display = 'none'
     }, 2000);
   }
   // setYears()
@@ -103,7 +103,7 @@ const Anime = () => {
         {
           animes.map((a) => {
             return (
-              <Animebox title={a.title} image={a.images.webp.large_image_url} engTitle={a.title_english} status={a.aired.string} eps={a.episodes} epsd={a.duration} genres={a.genres} studios={a.studios} source={a.source} demographic={a.demographics} themes={a.themes} score={a.score} members={a.members} description={a.synopsis}/>
+              <Animebox data={a} title={a.title} image={a.images.webp.large_image_url} engTitle={a.title_english} status={a.aired.string} eps={a.episodes} epsd={a.duration} genres={a.genres} studios={a.studios} source={a.source} demographic={a.demographics} themes={a.themes} score={a.score} members={a.members} description={a.synopsis} mal_id={a.mal_id}/>
             )
           })
         }
