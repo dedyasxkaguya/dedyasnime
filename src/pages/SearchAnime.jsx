@@ -17,7 +17,7 @@ const SearchAnime = () => {
     const handleSearch = (e) => {
         document.getElementById("loading1").style.display = 'flex'
         setTimeout(() => {
-            axios.get(`https://api.jikan.moe/v4/anime?q=${e.target.value}&sfw=true`)
+            axios.get(`https://api.jikan.moe/v4/anime?q=${e.target.value}?sfw=true`)
                 .then(res => {
                     console.log(res.data)
                     const fetched = res.data.data

@@ -47,8 +47,9 @@
     overflow: scroll;
     scrollbar-width: none;
 }
-.largeAnimeDesc{
-    width: 100%!important;
+
+.largeAnimeDesc {
+    width: 100% !important;
     height: 18dvw;
     overflow: scroll;
     scrollbar-width: none;
@@ -100,6 +101,11 @@
         display: flex;
         flex-direction: column;
     }
+
+    #charGrid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
 }
 
 @media (max-width:720px) {
@@ -138,6 +144,11 @@
     /* .tableBox{
         max-width: 80dvw;
     } */
+
+    #charGrid {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr) !important;
+    }
 }
 
 .tableContainer {
@@ -164,4 +175,15 @@
     background-image: linear-gradient(to top, #fff, transparent);
     height: 80%;
     width: 100%;
+}
+
+/* Character */
+#charGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+.charBox{
+    width: 100%;
+    height: 50%;
+    background-image: linear-gradient(to top , #fff , transparent );
 }
