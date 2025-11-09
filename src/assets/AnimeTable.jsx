@@ -1,8 +1,11 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 const AnimeTable = (props) => {
+    useEffect(()=>{
+        AOS.init()
+    },[])
     return (
-        <tr>
+        <tr data-aos="fade-up">
             <td className='text-center fw-bold'>
                 <div className='my-4'>
                     {props.rank}
@@ -31,13 +34,6 @@ const AnimeTable = (props) => {
                 <div className="my-4 ">
                     <i className='bi bi-bookmark-fill mx-2'></i>
                     {props.favorites}
-                </div>
-            </td>
-            <td className='tableStatus'>
-                <div className="my-4">
-                    <button type="button" className='btn btn-light rounded-5 text-center'>
-                        <i className='bi bi-heart my-1 mx-0'></i>
-                    </button>
                 </div>
             </td>
         </tr>

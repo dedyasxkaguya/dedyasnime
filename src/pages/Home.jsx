@@ -25,6 +25,7 @@ const Home = () => {
 
 
   useEffect(() => {
+    AOS.init()
     setTimeout(() => {
       setLoading(false)
     }, 500);
@@ -92,7 +93,7 @@ const Home = () => {
         <h4>Welcome To DedyasNimeList</h4>
         <hr />
         <div className="d-flex justify-content-center gap-2">
-          <main className='p-4 border border-secondary-subtle m-2 rounded-4'>
+          <main className='p-4 border border-secondary-subtle m-2 rounded-4' data-aos="fade-up">
             <h4 className='title text-capitalize'>{season} 2025 Anime</h4>
             {/* <Flex dir="col"> */}
             {/* <i onClick={(e) => handleLeftFlex(e)}
@@ -117,7 +118,7 @@ const Home = () => {
             <br />
             <News />
           </main>
-          <section id='sideBar' className='p-3 rounded-4 m-2'>
+          <section id='sideBar' className='p-3 rounded-4 m-2' data-aos="fade-up" data-aos-delay="100">
             <Bigbox title="Top Airing Anime" id="bigBox1">
               {
                 topAnime.map((a) => {

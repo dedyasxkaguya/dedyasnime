@@ -111,7 +111,7 @@ const Character = () => {
     )
   }
   return (
-    <div>
+    <div className='p-4'>
       <h1>Character</h1>
       <input type="text" className='form-control rounded-2 my-2' placeholder='Search Anime Character' onChange={(e) => handlesearch(e)} />
       <h6 className='my-4'>Showing result of "{anime}"</h6>

@@ -1,12 +1,14 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import SingleAnime from '../assets/SingleAnime'
+import List from '../assets/List'
+import SingleList from '../assets/SingleList'
 
 const DetailsAnime = () => {
     const [nime, setNime] = useState({})
     const id = localStorage.getItem("idNime")
-    let genre
     const idNime = localStorage.getItem("idNime")
+    let genre
     console.log(idNime)
     useEffect(() => {
         setTimeout(() => {
@@ -45,107 +47,112 @@ const DetailsAnime = () => {
     const year = nime.aired?.prop?.from?.year // Menggunakan Optional Chaining
     const season = month ? getSeason(month) : null
     const image = nime.images?.webp?.large_image_url
-    const opening_link = ''
+    const premiered = season + "-" + year
     if (!nime || !nime.title) {
         return <div>Memuat data anime...</div>;
+    }
+    let typeIcon
+    if (nime.type.toLowerCase() == 'tv') {
+        typeIcon = <i className='bi bi-tv'></i>
+    } else if (nime.type.toLowerCase() == 'movie') {
+        typeIcon = <i className='bi bi-film'></i>
+    } else {
+        typeIcon = <i className='bi bi-cast'></i>
     }
     return (
         <div className=''>
             <img src={nime.images.jpg.large_image_url} alt="" id="heroImg" />
             <div className="mainContainer bg-white">
                 <div className="detailTitle rounded-top-4 p-4">
-                    <p className='fs-2 fw-bold'>{nime.title}</p>
-                    <p className='text-secondary'>
-                        {nime.title_english} | {nime.title_japanese}</p>
-                    <p>{nime.score}</p>
-                    <p>{nime.rank}</p>
-                    <p>{nime.popularity}</p>
-                    <p>{nime.member}</p>
-                <p>{season} {year}</p>
+                    <div className="rounded-4 shadow-lg p-2">
+                        <div className="d-flex w-75">
+                            <img src={image} alt="" className='littleImg rounded-3' />
+                            <div className="d-flex flex-column mx-2">
+                                <span className='fs-2 fw-bold'>{nime.title}</span>
+                                <span className='text-secondary'>
+                                    {nime.title_english}
+                                </span>
+                                <p className='w-50 deksSyn'>{nime.synopsis}</p>
+                                <div className="deksGen">
+                                    <div className="genreGrid d-flex gap-2 justify-content-start">
+                                        {nime.genres?.map((genre) => {
+                                            return (
+                                                <div className='p-2 bg bg-secondary-subtle rounded-pill text-black'>{genre.name}</div>
+                                            )
+                                        })}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <img src={image} alt="" />
-                {nime.genres?.map((genre) => {
-                    return (
-                        <p>{genre.name}</p>
-                    )
-                })}
+                <div className="genreGrid d-flex gap-2 mx-auto justify-content-center mb-4">
+                    {nime.genres?.map((genre) => {
+                        return (
+                            <div className='p-2 bg bg-secondary-subtle rounded-pill text-black'>{genre.name}</div>
+                        )
+                    })}
+                </div>
                 <div className='p-2'>
-                    <p>Type: {nime.type}</p>
-                    <p>Episodes: {nime.episode ? nime.episode : "null"}</p>
-                    <p>Status: {nime.status}</p>
-                    <p>Aired: {nime.aired.string}</p>
-                    <p>Premiered: {season} {year}</p>
-                    <p>Broadcast: {nime.broadcast.day ? nime.broadcast.day : "- "} at  {nime.broadcast.time ? nime.broadcast.time : "- "}
-                        ( {nime.broadcast.timezone ? nime.broadcast.timezone : "- "} )
-
-                    </p>
-                    <p>Producers:
-                        {nime.producers?.map((p) => {
+                    <SingleList title="Type" string={nime.type} />
+                    <SingleList title="Episode"
+                        string={nime.episodes ? nime.episodes : "1"} />
+                    <SingleList title="Status" string={nime.status} />
+                    <SingleList title="Aired" string={nime.aired.string} />
+                    <SingleList title="Premiered" string={premiered} />
+                    <iframe src={nime.trailer.embed_url} frameborder="0"
+                        className='w-100 rounded-3 p-2'></iframe>
+                    <List title="Producers" array={nime.producers} />
+                    <List title="Licensors" array={nime.licensors} />
+                    <List title="Studios" array={nime.studios} />
+                    <SingleList title="Source" string={nime.source} />
+                    <List title="Theme" array={nime.themes} />
+                    <List title="Demographics" array={nime.demographics} />
+                    <SingleList title="Duration" string={nime.duration} />
+                    <SingleList title="Rating" string={nime.rating} />
+                    <div className="synopsis p-2 border border-secondary-subtle rounded-2">
+                        <h5>Synopsis</h5>
+                        <p className='m-2'>{nime.synopsis}</p>
+                    </div>
+                    <br />
+                    <ul className="list-group">
+                        <li className="list-group-item fw-semibold">
+                            Opening & Ending
+                        </li>
+                        {nime.theme?.openings?.map((o) => {
+                            const link = `https://youtube.com/results?search_query=${o}`
+                            const linkName = o.split('"')[1]
+                            const linkArtist = o.split('"')[2]
                             return (
-                                <span key={p.mal_id}>{p.name}</span>
+                                <li className='list-group-item'>
+                                    <a href={link} target='_blank' className='btn btn-danger m-2'>
+                                        <i className='bi bi-youtube me-2'></i>
+                                        {linkName}
+                                    </a>
+                                    <br />
+                                    <span className='mx-2 text-secondary'>
+                                        {linkName}
+                                        {linkArtist}
+                                    </span>
+                                </li>
                             )
                         })}
-                    </p>
-                    <p>Licensors:
-                        {
-                            nime.licensors.map((p) => {
-                                return (
-                                    <span key={p.mal_id}>{p.name}</span>
-                                )
-                            })
-                        }
-                    </p>
-                    <p>Studios:
-                        {
-                            nime.studios.map((s) => {
-                                return (
-                                    <span key={s.mal_id}>{s.name} , </span>
-                                )
-                            })
-                        }
-                    </p>
-                    <p>Source: {nime.source}</p>
-                    <p>Theme:
-                        {
-                            nime.themes?.map((t) => {
-                                return (
-                                    <span key={t.mal_id}>{t.name}</span>
-                                )
-                            })
-                        }
-                    </p>
-                    <p>Demographic:
-                        {
-                            nime.demographics?.map((d) => {
-                                return (
-                                    <span key={d.mal_id}>{d.name}</span>
-                                )
-                            })
-                        }
-                    </p>
-                    <p>Duration: {nime.duration}.</p>
-                    <p>Rating: {nime.rating}</p>
-                    <p>Synopsis : {nime.synopsis}</p>
-                    <iframe src={nime.trailer.embed_url} frameborder="0"></iframe>
-                    <br />
-                    {nime.theme?.openings?.map((o) => {
-                        const link = `https://youtube.com/results?search_query=${o}`
-                        return (
-                            <>
-                                <a href={link}>Opening</a><br />
-                            </>
-                        )
-                    })}
-                    <br />
-                    {nime.theme?.endings?.map((o) => {
-                        const link = `https://youtube.com/results?search_query=${o}`
-                        return (
-                            <>
-                                <a href={link} target='_blank'>Ending</a>
-                                <br />
-                            </>
-                        )
-                    })}
+                        {nime.theme?.endings?.map((o) => {
+                            const link = `https://youtube.com/results?search_query=${o}`
+                            const EndingName = o.split('"')[1]
+                            const linkArtist = o.split('"')[2]
+                            return (
+                                <li className='list-group-item'>
+                                    <a href={link} target='_blank' className='btn btn-danger m-2'>
+                                        <i className='bi bi-youtube me-2'></i>
+                                        {EndingName}
+                                    </a><br />
+                                    <span className='mx-2 text-secondary'>{linkArtist}</span>
+                                    <br />
+                                </li>
+                            )
+                        })}
+                    </ul>
                 </div>
             </div>
         </div>

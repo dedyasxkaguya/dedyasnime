@@ -7,44 +7,46 @@ const SearchAnime = () => {
     const [anime0, setAnime0] = useState([])
     const [anime1, setAnime1] = useState([])
     const [genre, setGenre] = useState([])
-    const [sgenre,setSgenre] = useState("")
+    const [sgenre, setSgenre] = useState("")
     const types = [
         {
-            "mal_id":"0",
-            "name":"tv",
+            "mal_id": "0",
+            "name": "tv",
         },
         {
-            "mal_id":"1",
-            "name":"movie",
-            
+            "mal_id": "1",
+            "name": "movie",
+
         },
         {
-            "mal_id":"2",
-            "name":"ova",
-            
+            "mal_id": "2",
+            "name": "ova",
+
         },
         {
-            "mal_id":"3",
-            "name":"special",
-            
+            "mal_id": "3",
+            "name": "special",
+
         },
         {
-            "mal_id":"4",
-            "name":"ona",
-            
+            "mal_id": "4",
+            "name": "ona",
+
         },
         {
-            "mal_id":"5",
-            "name":"music",
-            
+            "mal_id": "5",
+            "name": "music",
+
         },
         {
-            "mal_id":"6",
-            "name":"tv_special",
+            "mal_id": "6",
+            "name": "tv_special",
 
         }
     ]
     useEffect(() => {
+        AOS.init({
+        });
         setTimeout(() => {
             axios.get("https://api.jikan.moe/v4/anime?q=conan&sfw=true&genre=0")
                 .then(res => {
@@ -194,17 +196,17 @@ const SearchAnime = () => {
                 <label htmlFor="" className='d-flex gap-2 align-items-center my-2'>
                     Genre
                     <i className='bi bi-sliders2'></i>
-                    <select name="" id="" className='form-select' onChange={(e)=>handleSearchFilter(e)}>
+                    <select name="" id="" className='form-select' onChange={(e) => handleSearchFilter(e)}>
                         <option value="genre" hidden>
                             None
                         </option>
                         {
                             genre.map((a) => {
-                                if(
+                                if (
                                     a.name.toLowerCase().includes("ecchi") ||
                                     a.name.toLowerCase().includes("erotica") ||
                                     a.name.toLowerCase().includes("hentai")
-                                ){
+                                ) {
                                     return
                                 }
                                 return (
@@ -217,7 +219,7 @@ const SearchAnime = () => {
                 <label htmlFor="" className='d-flex gap-2 align-items-center my-2'>
                     Type
                     <i className='bi bi-sliders2'></i>
-                    <select name="" id="" className='form-select' onChange={(e)=>handleSearchType(e)}>
+                    <select name="" id="" className='form-select' onChange={(e) => handleSearchType(e)}>
                         <option value="genre" hidden>
                             None
                         </option>
@@ -234,7 +236,7 @@ const SearchAnime = () => {
                 <label htmlFor="" className='d-flex gap-2 align-items-center my-2'>
                     Status
                     <i className='bi bi-sliders2'></i>
-                    <select name="" id="" className='form-select' onChange={(e)=>handleSearchStatus(e)}>
+                    <select name="" id="" className='form-select' onChange={(e) => handleSearchStatus(e)}>
                         <option value="genre" hidden>
                             None
                         </option>
@@ -252,21 +254,21 @@ const SearchAnime = () => {
                 {
                     anime.map((a) => {
                         return (
-                            <LargeAnimeBox title={a.title} image={a.images.webp.large_image_url} engTitle={a.title_english} status={a.aired.string} eps={a.episodes} epsd={a.duration} genres={a.genres} studios={a.studios} source={a.source} demographic={a.demographics} themes={a.themes} score={a.score} members={a.members} description={a.synopsis} id={a.mal_id} />
+                            <LargeAnimeBox data={a} title={a.title} image={a.images.webp.large_image_url} engTitle={a.title_english} status={a.aired.string} eps={a.episodes} epsd={a.duration} genres={a.genres} studios={a.studios} source={a.source} demographic={a.demographics} themes={a.themes} score={a.score} members={a.members} description={a.synopsis} id={a.mal_id} />
                         )
                     })
                 }
                 {
                     anime0.map((a) => {
                         return (
-                            <LargeAnimeBox title={a.title} image={a.images.webp.large_image_url} engTitle={a.title_english} status={a.aired.string} eps={a.episodes} epsd={a.duration} genres={a.genres} studios={a.studios} source={a.source} demographic={a.demographics} themes={a.themes} score={a.score} members={a.members} description={a.synopsis} id={a.mal_id} />
+                            <LargeAnimeBox data={a} title={a.title} image={a.images.webp.large_image_url} engTitle={a.title_english} status={a.aired.string} eps={a.episodes} epsd={a.duration} genres={a.genres} studios={a.studios} source={a.source} demographic={a.demographics} themes={a.themes} score={a.score} members={a.members} description={a.synopsis} id={a.mal_id} />
                         )
                     })
                 }
                 {
                     anime1.map((a) => {
                         return (
-                            <LargeAnimeBox title={a.title} image={a.images.webp.large_image_url} engTitle={a.title_english} status={a.aired.string} eps={a.episodes} epsd={a.duration} genres={a.genres} studios={a.studios} source={a.source} demographic={a.demographics} themes={a.themes} score={a.score} members={a.members} description={a.synopsis} id={a.mal_id} />
+                            <LargeAnimeBox data={a} title={a.title} image={a.images.webp.large_image_url} engTitle={a.title_english} status={a.aired.string} eps={a.episodes} epsd={a.duration} genres={a.genres} studios={a.studios} source={a.source} demographic={a.demographics} themes={a.themes} score={a.score} members={a.members} description={a.synopsis} id={a.mal_id} />
                         )
                     })
                 }

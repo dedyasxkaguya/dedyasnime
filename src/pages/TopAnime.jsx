@@ -41,7 +41,6 @@ const TopAnime = () => {
                   <td scope='col' className='tableTitle'>Title</td>
                   <td scope='col'>Score</td>
                   <td scope='col' className='tableMember'>Member</td>
-                  <td scope='col' className='tableStatus'>Status</td>
                 </tr>
               </thead>
               <tbody>
@@ -59,7 +58,6 @@ const TopAnime = () => {
                   <td scope='col' className='tableTitle'>Title</td>
                   <td scope='col'>Score</td>
                   <td scope='col'>Member</td>
-                  <td scope='col' className='tableStatus'>Status</td>
                 </tr>
               </thead>
               <tbody>

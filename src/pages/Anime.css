@@ -76,6 +76,13 @@
     cursor: pointer;
 }
 
+
+/*  */
+.headerAnimeImg {
+    height: 50dvh;
+}
+
+/*  */
 @media (max-width:1080px) {
     .grid0 {
         display: grid;
@@ -102,9 +109,11 @@
         display: flex;
         flex-direction: column;
     }
-    .tableMember{
+
+    .tableMember {
         display: none;
     }
+
     #charGrid {
         display: grid;
         grid-template-columns: repeat(2, 1fr) !important;
@@ -130,9 +139,11 @@
         overflow: scroll;
         scrollbar-width: none;
     }
-    .tableContainer{
+
+    .tableContainer {
         font-size: 12px;
     }
+
     .grid0 {
         display: grid;
         grid-template-columns: repeat(1, 1fr);
@@ -146,13 +157,27 @@
         display: none;
     }
 
-    /* .tableBox{
-        max-width: 80dvw;
-    } */
-
     #charGrid {
         display: grid;
         grid-template-columns: repeat(1, 1fr) !important;
+    }
+
+    .littleImg {
+        width: 24dvw !important;
+        height: 36dvw !important;
+    }
+
+    #heroImg {
+        opacity: 1 !important;
+    }
+    .deksSyn{
+        display: none;
+    }
+    .deksGen{
+        display: none;
+    }
+    .mainContainer{
+        top: 60dvw;
     }
 }
 
@@ -187,10 +212,11 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
 }
-.charBox{
+
+.charBox {
     width: 100%;
     height: 50%;
-    background-image: linear-gradient(to top , #fff , transparent );
+    background-image: linear-gradient(to top, #fff, transparent);
 }
 
 
@@ -198,7 +224,7 @@
 
 
 /* Details */
-#heroImg{
+#heroImg {
     aspect-ratio: 4/3;
     width: 100%;
     object-fit: cover;
@@ -206,18 +232,30 @@
     z-index: -9;
     top: 0;
     right: 0;
-    image-rendering: optimizeQuality;
+    opacity: 0;
+    /* image-rendering: pixelated; */
 }
-.mainContainer{
+
+.mainContainer {
     width: 100dvw;
     position: absolute;
     left: 0;
-    top: 68dvw;
 }
-.detailTitle{
-    margin-top: -20dvw;
+
+.detailTitle {
     background-color: white;
 }
+
 #mainDetail {
     width: 100dvw !important;
+}
+
+.littleImg {
+    width: 12dvw;
+    height: 18dvw;
+    object-fit: cover;
+}
+
+iframe {
+    aspect-ratio: 1.85/1;
 }

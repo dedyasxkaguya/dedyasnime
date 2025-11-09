@@ -1,12 +1,15 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Newspage from './Newspage'
 import news0 from '../../public/news/news0.jpg'
 import news1 from '../../public/news/news1.jpeg'
 import news2 from '../../public/news/news2.jpeg'
 import news3 from '../../public/news/news3.jpeg'
 const News = () => {
+  useEffect(()=>{
+    AOS.init();
+  },[])
   return (
-    <>
+    <div data-aos="fade-up" data-aos-delay="300">
       <div>Anime & Manga News</div>
       <hr />
       <div className="p-2 newspage">
@@ -16,7 +19,7 @@ const News = () => {
         <Newspage title="BAdditional Cast for 'Isekai no Sata wa Shachiku Shidai' Announced" image={news3} text="The official website for the television anime adaptation of Wakatsu Yatsuki's Isekai no Sata wa Shachiku Shidai (The Other World's Books Depend on the Bean Counter) light novel announced four additional cast on Friday." note="Oct 30, 9:34 PM by DatRandomDude | Discuss (3 comments)"/>
         {/* <Newspage title="Bungou Stray Dogs Wan!' Second Season Announced for 2026" image={news4} text="The official website of the Bungou Stray Dogs Wan! television anime announced a second season on Saturday, revealing the main staff, cast and visual" note="11 hours ago by Syureria | Discuss (2 comments)"/> */}
       </div>
-    </>
+    </div>
   )
 }
 

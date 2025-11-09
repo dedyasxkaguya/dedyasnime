@@ -1,10 +1,18 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 const LargeAnimeBox = (props) => {
+    useEffect(()=>{
+        AOS.init({})
+    },[])
+    let favArray = []
+    if (localStorage.getItem("favNime")) {
+        favArray = JSON.parse(localStorage.getItem("favNime"))
+    } else {
+    }
+    console.log(favArray.includes(props.data))
     let style0 = {
         "backgroundImage": `url("${props.image}")`,
-        "height": "64dvh",
         "backgroundSize": "cover"
     }
     props.genres.map((g)=>{
@@ -15,10 +23,30 @@ const LargeAnimeBox = (props) => {
     const handleId = () => {
         localStorage.setItem("idNime",props.id)
     }
+    const handleFav = (e) => {
+        if (!favArray.includes(props.data)) {
+            favArray.push(props.data)
+            localStorage.setItem("favNime", JSON.stringify(favArray))
+            e.target.classList.remove("btn-light")
+            e.target.classList.add("btn-dark")
+            swal.fire({
+                "icon":"success",
+                "title":"Berhasil",
+                "text":`${props.title} Telah ditambahkan ke anime favorit`
+            })
+        } else {
+            console.log("Data Sudah Ada Di Memory")
+            swal.fire({
+                "icon":"info",
+                "title":"Gagal",
+                "text":`${props.title} Telah ada dalam list anime favorit`
+            })
+        }
+    }
     return (
-        <div className='d-flex flex-column my-2 shadow rounded-4 p-2 justify-content-center'>
+        <div className='d-flex flex-column my-2 shadow rounded-4 p-2 justify-content-center' data-aos="fade-up">
             {/* <img src={props.image} alt="" className='animeImgLarge m-2 rounded-3' /> */}
-            <div className="text-center d-flex align-items-end rounded-4" style={style0}>
+            <div className="text-center d-flex align-items-end rounded-4 headerAnimeImg" style={style0}>
                 <div className="titleBg p-4 d-flex justify-content-end flex-column">
                     <h5 className='textTitle fw-semibold m-0'>{props.title}</h5>
                     <h6 className='text-secondary fw-light'>{props.engTitle}</h6>
@@ -73,7 +101,7 @@ const LargeAnimeBox = (props) => {
                     </div>
                 </span>
             </div>
-            <div className="d-flex pop justify-content-around align-items-center pb-2 rounded-3">
+            <div className="d-flex pop justify-content-around align-items-center pb-2 rounded-3 my-2">
                 <span>
                     <i className="bi bi-star mx-2"></i>
                     {props.score}
@@ -82,7 +110,8 @@ const LargeAnimeBox = (props) => {
                     <i className="bi bi-person-fill mx-2"></i>
                     {props.members}
                 </span>
-                <button type="button" className='btn btn-light'>
+                <button type="button" className='btn btn-light' 
+                onClick={(e) => handleFav(e)}>
                     <i className='bi bi-heart mx-2'></i>
                     Add Favorites
                 </button>

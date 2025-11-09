@@ -1,28 +1,37 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 const Animebox = (props) => {
-    console.log(props.data)
     let favArray = []
     if (localStorage.getItem("favNime")) {
         favArray = JSON.parse(localStorage.getItem("favNime"))
-        console.log("Data berhasil diambil dari memory")
     } else {
-        // favArray = JSON.parse(localStorage.getItem("favNime"))
-        console.log("Data tidak ada di memory")
     }
+    useEffect(() => {
+        AOS.init({
+        });
+    }, [])
     const handleFav = (e) => {
-        if(!favArray.includes(props.data)){
+        if (!favArray.includes(props.data)) {
             favArray.push(props.data)
-            console.log(props.data)
-            localStorage.setItem("favNime",JSON.stringify(favArray))
+            localStorage.setItem("favNime", JSON.stringify(favArray))
             e.target.classList.remove("btn-light")
             e.target.classList.add("btn-dark")
-        }else{
+            swal.fire({
+                "icon":"success",
+                "title":"Berhasil",
+                "text":`${props.title} Telah ditambahkan ke anime favorit`
+            })
+        } else {
             console.log("Data Sudah Ada Di Memory")
+            swal.fire({
+                "icon":"info",
+                "title":"Gagal",
+                "text":`${props.title} Telah ada dalam list anime favorit`
+            })
         }
     }
     return (
-        <div id={props.mal_id} className='d-flex flex-column my-2 shadow rounded-4 p-1 pt-4 justify-content-between'>
+        <div id={props.mal_id} className='d-flex flex-column my-2 shadow rounded-4 p-1 pt-4 justify-content-between' data-aos='fade-up'>
             <div className="text-center">
                 <h5 className='textTitle fw-semibold m-0'>{props.title}</h5>
                 <h6 className='text-secondary fw-light'>{props.engTitle}</h6>

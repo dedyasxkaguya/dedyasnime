@@ -70,7 +70,7 @@ const Anime = () => {
     )
   }
   return (
-    <div className="p-2 px-0 animeBody mx-auto">
+    <div className="p-2 px-4 animeBody mx-auto">
       <h1>Anime</h1>
       <Flex>
         <select name="searchSeason" id="searchSeason" className='form-select' onChange={(e) => handleSeason(e)}>
@@ -96,7 +96,7 @@ const Anime = () => {
         <span>Fetching the API</span>
         <span>Please Wait A Second....</span>
       </div>
-      <div className="grid0 gap-2">
+      <div className="grid0 gap-2 p-2">
         {
           animes.map((a) => {
             return (
