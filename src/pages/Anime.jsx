@@ -29,7 +29,6 @@ const Anime = () => {
         console.log(fetched.length)
         if (fetched && fetched.length > 0) {
           setAnimes(fetched);
-          console.log(animes);
         } else {
           console.log("err0");
         }
@@ -42,7 +41,6 @@ const Anime = () => {
       axios.get(`https://api.jikan.moe/v4/seasons/${e.target.value}/${season}`)
         .then(res => {
           setAnimes(res.data.data)
-          console.log("wait a minute")
         })
     }, 1000);
     setTimeout(() => {
@@ -56,7 +54,6 @@ const Anime = () => {
       axios.get(`https://api.jikan.moe/v4/seasons/${year}/${e.target.value}`)
         .then(res => {
           setAnimes(res.data.data)
-          console.log("wait a minute")
         })
     }, 1000);
     setTimeout(() => {

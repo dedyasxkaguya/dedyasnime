@@ -1,28 +1,11 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 
-const LargeAnimeBox = (props) => {
-    let style0 = {
-        "backgroundImage": `url("${props.image}")`,
-        "height": "64dvh",
-        "backgroundSize": "cover"
-    }
-    props.genres.map((g)=>{
-        if(g.name.toLowerCase().includes("ecchi")){
-            return
-        }
-    })
-    const handleId = () => {
-        localStorage.setItem("idNime",props.id)
-    }
-    return (
-        <div className='d-flex flex-column my-2 shadow rounded-4 p-2 justify-content-center'>
-            {/* <img src={props.image} alt="" className='animeImgLarge m-2 rounded-3' /> */}
-            <div className="text-center d-flex align-items-end rounded-4" style={style0}>
-                <div className="titleBg p-4 d-flex justify-content-end flex-column">
-                    <h5 className='textTitle fw-semibold m-0'>{props.title}</h5>
-                    <h6 className='text-secondary fw-light'>{props.engTitle}</h6>
-                </div>
+const SingleAnime = () => {
+  return (
+    <div id={props.mal_id} className='d-flex flex-column my-2 shadow rounded-4 p-1 pt-4 justify-content-between'>
+            <div className="text-center">
+                <h5 className='textTitle fw-semibold m-0'>{props.title}</h5>
+                <h6 className='text-secondary fw-light'>{props.engTitle}</h6>
             </div>
             <div className="statusBox text-center p-2 mt-2">
                 {/* Oct 2, 2025 ? |  eps, 23 min */}
@@ -37,8 +20,10 @@ const LargeAnimeBox = (props) => {
                     )
                 })}
             </div>
-            <div className="d-flex">
-                <span className='largeAnimeDesc'>{props.description}<br /><br />
+            <div className="d-flex justify-content-center">
+                <img src={props.image} alt="" className='animeImg m-2 rounded-3' />
+                <span className='animeDesc'>{props.description}
+                    <br /><br />
                     <div className='infoNime d-flex flex-column p-2'>
                         <span className='infoSpan'>
                             <b>Studios : </b>
@@ -73,7 +58,7 @@ const LargeAnimeBox = (props) => {
                     </div>
                 </span>
             </div>
-            <div className="d-flex pop justify-content-around align-items-center pb-2 rounded-3">
+            <div className="d-flex pop justify-content-around align-items-center py-2 rounded-3">
                 <span>
                     <i className="bi bi-star mx-2"></i>
                     {props.score}
@@ -82,17 +67,14 @@ const LargeAnimeBox = (props) => {
                     <i className="bi bi-person-fill mx-2"></i>
                     {props.members}
                 </span>
-                <button type="button" className='btn btn-light'>
+                <button type="button" className='btn btn-light'
+                    onClick={(e) => handleFav(e)}>
                     <i className='bi bi-heart mx-2'></i>
                     Add Favorites
                 </button>
             </div>
-            <Link to={'/anime/details'} className='btn btn-outline-primary rounded-3 mt-2' onClick={()=>handleId()}>
-            <i className='bi bi-search mx-2'></i>
-            See Details
-            </Link>
         </div>
-    )
+  )
 }
 
-export default LargeAnimeBox
+export default SingleAnime

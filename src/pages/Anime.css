@@ -192,3 +192,32 @@
     height: 50%;
     background-image: linear-gradient(to top , #fff , transparent );
 }
+
+
+
+
+
+/* Details */
+#heroImg{
+    aspect-ratio: 4/3;
+    width: 100%;
+    object-fit: cover;
+    position: fixed;
+    z-index: -9;
+    top: 0;
+    right: 0;
+    image-rendering: optimizeQuality;
+}
+.mainContainer{
+    width: 100dvw;
+    position: absolute;
+    left: 0;
+    top: 68dvw;
+}
+.detailTitle{
+    margin-top: -20dvw;
+    background-color: white;
+}
+#mainDetail {
+    width: 100dvw !important;
+}
