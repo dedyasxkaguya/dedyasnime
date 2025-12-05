@@ -7,8 +7,9 @@ import Bigbox from '../assets/Bigbox';
 
 
 //data
-import fall_anime from '../data/fall_anime_data.json'
+// import fall_anime from '../data/fall_anime_data.json'
 import News from '../assets/News';
+import Navbar from '../Navbar';
 
 
 const Home = () => {
@@ -17,15 +18,15 @@ const Home = () => {
   const [manga, setManga] = useState([])
   const [topAnime, setTopAnime] = useState([])
   const [topManga, setTopManga] = useState([])
-  const [season, setSeason] = useState("fall")
-  let apiUrl = `https://api.jikan.moe/v4/seasons/2025/${season}`
+  // const [season, setSeason] = useState("fall")
+  let apiUrl = `https://api.jikan.moe/v4/seasons/2025/fall`
   let mangaUrl = 'https://api.jikan.moe/v4/manga'
   let topAnimeUrl = 'https://api.jikan.moe/v4/top/anime'
   let topMangaUrl = 'https://api.jikan.moe/v4/top/manga'
 
 
   useEffect(() => {
-    AOS.init()
+    // AOS.init()
     setTimeout(() => {
       setLoading(false)
     }, 500);
@@ -76,25 +77,26 @@ const Home = () => {
       <Loading />
     )
   }
-  const handleLeftFlex = (e) => {
-    let scroll = e.target.nextElementSibling.style.right
-    console.log(scroll)
-    scroll = scroll.split("%")
-    let nextScroll = Number(scroll[0]) + 80
-    if (nextScroll <= 400) {
-      console.log(nextScroll)
-      e.target.nextElementSibling.style.right = `${nextScroll}%`
-      console.log(e.target.nextElementSibling.style.right)
-    }
-  }
+  // const handleLeftFlex = (e) => {
+  //   let scroll = e.target.nextElementSibling.style.right
+  //   console.log(scroll)
+  //   scroll = scroll.split("%")
+  //   let nextScroll = Number(scroll[0]) + 80
+  //   if (nextScroll <= 400) {
+  //     console.log(nextScroll)
+  //     e.target.nextElementSibling.style.right = `${nextScroll}%`
+  //     console.log(e.target.nextElementSibling.style.right)
+  //   }
+  // }
   return (
     <>
+      <Navbar />
       <div className="p-2">
-        <h4>Welcome To DedyasNimeList</h4>
+        <h4 className='p-4'>Welcome To DedyasNimeList</h4>
         <hr />
         <div className="d-flex justify-content-center gap-2">
           <main className='p-4 border border-secondary-subtle m-2 rounded-4' data-aos="fade-up">
-            <h4 className='title text-capitalize'>{season} 2025 Anime</h4>
+            <h4 className='title text-capitalize'>Fall 2025 Anime</h4>
             {/* <Flex dir="col"> */}
             {/* <i onClick={(e) => handleLeftFlex(e)}
                 className="bi arrow bi-chevron-right p-2 rounded-circle bg-white text-center"></i> */}

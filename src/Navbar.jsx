@@ -1,21 +1,61 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { Link, useParams } from 'react-router-dom'
 import logo from './assets/logo.png'
 import Flex from './assets/Flex'
+import axios from 'axios'
 const Navbar = () => {
     // let isMenu = false
+    const [user, setUser] = useState()
+    let { id } = useParams()
+    const { id_user } = useParams()
+    if(!id && id_user){
+        id = id_user
+    }
+    useEffect(() => {
+        axios.get(`http://127.0.0.1:8000/api/user/${id}`)
+            .then(data => {
+                const fetched = data.data
+                setUser(fetched)
+                console.log(fetched)
+            })
+    }, [])
+
     const handleRefresh = () => {
         document.querySelector(".offcanvas1").style.display = 'none'
     }
     const handleMenu = () => {
         document.querySelector(".offcanvas1").style.display = 'flex'
     }
+
+    const HandleProfile = () => {
+        if (id & id!=undefined) {
+            const imageLink = `http://127.0.0.1:8000/${user?.image}`
+            return (
+                <Link to={`/profile/${id}`} className="btn btn-primary p-2 rounded-pill text-white d-flex gap-2 align-items-center">
+                    @ {user?.name}
+                    <img src={imageLink} alt="" className='profile-images rounded-circle' />
+                </Link>
+            )
+        } else {
+            return (
+                <div className="d-flex gap-4 align-items-center">
+                    <Link to={'/login'} className='btn btn-light'>
+                        Login
+                    </Link>
+                    <Link to={'/register'} className='btn btn-outline-dark'>
+                        Register
+                    </Link>
+                </div>
+            )
+        }
+    }
+
     return (
         <>
             <nav id='nav0' className='navbar p-2 px-4'>
                 <img id='logo' src={logo} alt="" />
                 <div className="d-flex rounded-4 text-decoration-none p-2 shadow-lg gap-4">
-                    <Link to={"/"}>
+                    <Link to={`/${id}`}>
                         <button className='pagesbtn p-2 text-decoration-none rounded-3'>
                             Home
                         </button>
@@ -31,12 +71,12 @@ const Navbar = () => {
                         </button>
                         <ul className="dropdown-menu">
                             <li>
-                                <Link to={'/anime'} className='dropdown-item'>
+                                <Link to={`/anime/${id}`} className='dropdown-item'>
                                     Seasonal Anime
                                 </Link>
                             </li>
                             <li>
-                                <Link to={'/anime/top'} className='dropdown-item'>
+                                <Link to={`/anime/top/${id}`} className='dropdown-item'>
                                     Top Anime
                                 </Link>
                             </li>
@@ -46,18 +86,18 @@ const Navbar = () => {
                                 </Link>
                             </li>
                             <li>
-                                <Link to={'/anime/search'} className='dropdown-item'>
+                                <Link to={`/anime/search/${id}`} className='dropdown-item'>
                                     Search Anime
                                 </Link>
                             </li>
                         </ul>
                     </div>
-                    <Link to={"/manga"}>
+                    <Link to={`/manga/${id}`}>
                         <button className='pagesbtn p-2 text-decoration-none rounded-3'>
                             Manga
                         </button>
                     </Link>
-                    <Link to={"/characters"}>
+                    <Link to={`/characters/${id}`}>
                         <button className='pagesbtn p-2 text-decoration-none rounded-3'>
                             Characters
                         </button>
@@ -70,11 +110,11 @@ const Navbar = () => {
                     </button> */}
                     {/* <div className="p-1 px-2 rounded-5 d-flex gap-2 align-items-center justify-content-start w-fit border border-black">Search */}
                     <label htmlFor="">
-                        <Flex>
+                        {/* <Flex>
                             <i className='bi bi-search'></i>
                             <input type="text" name="search" id="search" className='form-control rounded-5' placeholder='search' />
-                            {/* </div> */}
-                        </Flex>
+                        </Flex> */}
+                        <HandleProfile />
                     </label>
                 </Flex>
             </nav>
@@ -145,22 +185,22 @@ const Navbar = () => {
                             </button>
                             <ul className="dropdown-menu">
                                 <li>
-                                    <Link to={'/anime'} className='dropdown-item' onClick={()=>handleRefresh()}>
+                                    <Link to={'/anime'} className='dropdown-item' onClick={() => handleRefresh()}>
                                         Seasonal Anime
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link to={'/anime/top'} className='dropdown-item' onClick={()=>handleRefresh()}>
+                                    <Link to={'/anime/top'} className='dropdown-item' onClick={() => handleRefresh()}>
                                         Top Anime
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link to={'/anime/fav'} className='dropdown-item' onClick={()=>handleRefresh()}>
+                                    <Link to={'/anime/fav'} className='dropdown-item' onClick={() => handleRefresh()}>
                                         Favorites Anime
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link to={'/anime/search'} className='dropdown-item' onClick={()=>handleRefresh()}>
+                                    <Link to={'/anime/search'} className='dropdown-item' onClick={() => handleRefresh()}>
                                         Search Anime
                                     </Link>
                                 </li>

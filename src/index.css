@@ -60,6 +60,15 @@ nav .pagesbtn {
     outline: none;
 }
 
+nav .profile-images {
+    filter: blur(0);
+    transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+    cursor: pointer;
+    width: 2dvw !important;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+}
+
 .offcanvas {
     width: 50dvw !important;
     display: none;
@@ -91,10 +100,12 @@ nav .pagesbtn0:hover {
     transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
     color: white !important;
 }
-#nav0{
+
+#nav0 {
     background-color: rgba(255, 255, 255, .6);
     backdrop-filter: blur(8px);
 }
+
 #nav1 {
     display: none;
     background-color: var(--primary-blue);
@@ -114,7 +125,7 @@ nav .pagesbtn0:hover {
     position: relative;
     animation-delay: 4s;
     scrollbar-width: none;
-    
+
 }
 
 #flex2 {
@@ -273,10 +284,11 @@ nav .pagesbtn0:hover {
 }
 
 @media (max-width:1080px) {
-    #logo{
+    #logo {
         display: none;
     }
 }
+
 @media (max-width:720px) {
     body {
         padding: 0;

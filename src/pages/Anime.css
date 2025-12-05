@@ -259,3 +259,21 @@
 iframe {
     aspect-ratio: 1.85/1;
 }
+
+
+
+
+
+
+
+
+/* // */
+
+.comments{
+    /* width: 100dvw; */
+    min-height: 20dvh;
+}
+
+.comment-image{
+    max-width: 2.4dvw;
+}
