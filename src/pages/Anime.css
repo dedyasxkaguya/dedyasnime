@@ -275,5 +275,7 @@ iframe {
 }
 
 .comment-image{
-    max-width: 2.4dvw;
+    max-width: 1.6dvw;
+    aspect-ratio: 1/1;
+    object-fit: cover;
 }

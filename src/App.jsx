@@ -12,6 +12,7 @@ import DetailsAnime from './pages/DetailsAnime'
 import Register from './pages/register'
 import Login from './pages/Login'
 import Userhome from './pages/Userhomw'
+import Profile from './pages/Profile'
 
 function App() {
 
@@ -38,6 +39,7 @@ function App() {
 
         <Route path='/register' element={<Register />}></Route>
         <Route path='/login' element={<Login />}></Route>
+        <Route path='/profile/:id' element={<Profile/>}></Route>
       </Routes>
     </>
   )

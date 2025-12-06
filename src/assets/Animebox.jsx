@@ -7,7 +7,7 @@ const Animebox = (props) => {
     } else {
     }
     useEffect(() => {
-        AOS.init({
+        Aos.init({
         });
     }, [])
     const handleFav = (e) => {

@@ -1,9 +1,20 @@
+import Aos from 'aos'
 import React, { useEffect } from 'react'
+import { useParams } from 'react-router-dom'
 
 const AnimeTable = (props) => {
+
     useEffect(()=>{
-        AOS.init()
+        Aos.init()
     },[])
+
+    const { id } = useParams()
+
+    const handleDetail = () => {
+        localStorage.setItem('idNime',props.id)
+        location.href=`/anime/details/${id ? id : ''}`
+    }    
+
     return (
         <tr data-aos="fade-up">
             <td className='text-center fw-bold'>
@@ -12,7 +23,7 @@ const AnimeTable = (props) => {
                 </div>
             </td>
             <td className='tableTitle'>
-                <div className='d-flex gap-2 '>
+                <div className='d-flex gap-2 ' onClick={()=>handleDetail()}>
                     <img src={props.images} alt="" className='leaderboardImg rounded-3' />
                     <div className='d-flex flex-column'>
                         <span className='fw-semibold'>

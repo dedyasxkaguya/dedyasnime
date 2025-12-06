@@ -86,10 +86,9 @@ const Anime = () => {
   return (
     <>
       <Navbar />
-      <div className="p-2 px-4 animeBody mx-auto">
-        {/* <h1>Anime <HandleParam /> </h1> */}
+      <div className="p-2 animeBody">
         <Flex>
-          <select name="searchSeason" id="searchSeason" className='form-select' onChange={(e) => handleSeason(e)}>
+          <select name="searchSeason" id="searchSeason" className='form-select shadow-sm' onChange={(e) => handleSeason(e)}>
             <option value="default" hidden>Select Season</option>
             {seasons.map((s) => {
               return (
@@ -97,7 +96,7 @@ const Anime = () => {
               )
             })}
           </select>
-          <select name="searchYear" id="searchYear" className='form-select'
+          <select name="searchYear" id="searchYear" className='form-select shadow-sm'
             onChange={(e) => handleYear(e)}>
             <option value="default" hidden>Select Year</option>
             {years.map((s) => {
@@ -112,7 +111,7 @@ const Anime = () => {
           <span>Fetching the API</span>
           <span>Please Wait A Second....</span>
         </div>
-        <div className="grid0 gap-2 p-2">
+        <div className="grid0 gap-2">
           {
             animes.map((a) => {
               return (

@@ -1,5 +1,6 @@
 import axios from 'axios'
 import React from 'react'
+import { Link } from 'react-router-dom'
 import Swal from 'sweetalert2'
 
 const Login = () => {
@@ -25,18 +26,27 @@ const Login = () => {
                     setTimeout(() => {
                         location.href=`/${fetched.data.id}`
                     }, 2000);
+                }else{
+                    Swal.fire({
+                        'icon':'error',
+                        'title':'Error',
+                        'text':`Incorrect email or password`
+                    })
                 }
             })
     }
     return (
-        <div>
-            <form action="" className='w-75 mx-auto my-4 d-flex gap-2 flex-column p-2 shadow rounded-3'>
+        <div className='d-flex justify-content-center align-items-center' style={{ height:'100dvh' }}>
+            <form action="" className='w-75 mx-auto d-flex gap-2 flex-column p-2 shadow rounded-3'>
                 <h1>Login</h1>
                 <h6 className='fw-light'>Welcome back to DedyasNime</h6>
-                <input type="email" id='email' className='form-control' placeholder='email' />
-                <input type="password" id='password' className='form-control' placeholder='password' />
+                <input type="email" id='email' className='form-control' placeholder='Email' />
+                <input type="password" id='password' className='form-control' placeholder='Password' />
                 {/* <input type="file" name="" id='file' className='form-control' /> */}
-                <button type="button" className='btn btn-primary' onClick={() => handleLogin()}>Register</button>
+                <Link to={'/register'} className='text-secondary'>
+                    Doesnt have an account ? 
+                </Link>
+                <button type="button" className='btn btn-primary' onClick={() => handleLogin()}>Login</button>
             </form>
         </div>
     )

@@ -17,7 +17,6 @@ const Comments = (props) => {
     const getComment = async () => {
         const fetch = await axios.get(`http://127.0.0.1:8000/api/comment/${props.id}`)
         const res = await fetch.data
-
         console.log(res)
         setItem(res)
         getUser(res.user_id)
@@ -29,12 +28,12 @@ const Comments = (props) => {
 
     const imageLink = `http://127.0.0.1:8000/${user?.image}`
     return (
-        <div key={props.id} className='d-flex gap-2 p-2 rounded-3 shadow flex-column'>
-            <div className="d-flex gap-2">
+        <div key={props.id} className='d-flex gap-2 rounded-3 border flex-column overflow-hidden'>
+            <div className="d-flex gap-2 align-items-center p-2 bg-light">
                 <img src={imageLink} alt="" className='comment-image rounded-circle' />
-                <span>{item?.username}</span>
+                <span>@ {item?.username}</span>
             </div>
-            <span>{item?.comment}</span>
+            <span className='p-2 px-3'>{item?.comment}</span>
         </div>
     )
 }

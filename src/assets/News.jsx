@@ -4,9 +4,10 @@ import news0 from '../../public/news/news0.jpg'
 import news1 from '../../public/news/news1.jpeg'
 import news2 from '../../public/news/news2.jpeg'
 import news3 from '../../public/news/news3.jpeg'
+import Aos from 'aos'
 const News = () => {
   useEffect(()=>{
-    AOS.init();
+    Aos.init();
   },[])
   return (
     <div data-aos="fade-up" data-aos-delay="300">

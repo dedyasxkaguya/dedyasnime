@@ -11,6 +11,7 @@ import Bigbox from '../assets/Bigbox';
 import News from '../assets/News';
 import { useParams } from 'react-router-dom';
 import Navbar from '../Navbar';
+import Aos from 'aos';
 
 
 const Userhome = () => {
@@ -31,7 +32,7 @@ const Userhome = () => {
     let userUrl = `http://127.0.0.1:8000/api/user/${id}`
 
     useEffect(() => {
-        // AOS.init()
+        Aos.init()
         setTimeout(() => {
             setLoading(false)
         }, 500);
@@ -108,8 +109,8 @@ const Userhome = () => {
         <>
             <Navbar/>
             <div className="p-2">
-                <h4 className='p-4'>Welcome To DedyasNimeList {user?.name}</h4>
-                <hr />
+                <h4 className='p-4 m-0'>Welcome {user?.name}</h4>
+                <hr className='m-0'/>
                 <div className="d-flex justify-content-center gap-2">
                     <main className='p-4 border border-secondary-subtle m-2 rounded-4' data-aos="fade-up">
                         <h4 className='title text-capitalize'>Fall 2025 Anime</h4>
@@ -119,7 +120,7 @@ const Userhome = () => {
                         <Flex dir="col" id="flex1">
                             {anime.map((a) => {
                                 return (
-                                    <Smallbox img={a.images.webp.large_image_url} title={a.title} />
+                                    <Smallbox img={a.images.webp.large_image_url} title={a.title} id={a.mal_id}/>
                                 )
                             })}
                         </Flex>
@@ -129,7 +130,7 @@ const Userhome = () => {
                         <Flex dir="col" id="flex2">
                             {manga.map((a) => {
                                 return (
-                                    <Smallbox img={a.images.webp.large_image_url} title={a.title} />
+                                    <Smallbox img={a.images.webp.large_image_url} title={a.title} id={a.mal_id}/>
                                 )
                             })}
                         </Flex>

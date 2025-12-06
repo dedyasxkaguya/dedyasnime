@@ -8,7 +8,7 @@ const Navbar = () => {
     const [user, setUser] = useState()
     let { id } = useParams()
     const { id_user } = useParams()
-    if(!id && id_user){
+    if (!id && id_user) {
         id = id_user
     }
     useEffect(() => {
@@ -28,10 +28,22 @@ const Navbar = () => {
     }
 
     const HandleProfile = () => {
-        if (id & id!=undefined) {
+        if (id) {
+            if (id == 'undefined') {
+                return (
+                    <div className="d-flex gap-4 align-items-center">
+                        <Link to={'/login'} className='btn btn-light'>
+                            Login
+                        </Link>
+                        <Link to={'/register'} className='btn btn-outline-dark'>
+                            Register
+                        </Link>
+                    </div>
+                )
+            }
             const imageLink = `http://127.0.0.1:8000/${user?.image}`
             return (
-                <Link to={`/profile/${id}`} className="btn btn-primary p-2 rounded-pill text-white d-flex gap-2 align-items-center">
+                <Link to={`/profile/${id ? id : ''}`} className="btn btn-light shadow p-2 rounded-pill d-flex gap-2 align-items-center">
                     @ {user?.name}
                     <img src={imageLink} alt="" className='profile-images rounded-circle' />
                 </Link>
@@ -49,13 +61,35 @@ const Navbar = () => {
             )
         }
     }
+    const HandleMobileProfile = () => {
+        if (id) {
+            const imageLink = `http://127.0.0.1:8000/${user?.image}`
+            return (
+                <Link to={`/profile/${id ? id : ''}`} className="btn btn-light shadow p-2 rounded-pill d-flex gap-2 align-items-center">
+                    <img src={imageLink} alt="" className='profile-images rounded-circle' />
+                    <span className='me-2'>@ {user?.name}</span>
+                </Link>
+            )
+        } else {
+            return (
+                <div className="d-flex gap-2 align-items-center">
+                    <Link to={'/login'} className='btn btn-light'>
+                        Login
+                    </Link>
+                    <Link to={'/register'} className='btn btn-outline-light'>
+                        Register
+                    </Link>
+                </div>
+            )
+        }
+    }
 
     return (
         <>
             <nav id='nav0' className='navbar p-2 px-4'>
                 <img id='logo' src={logo} alt="" />
                 <div className="d-flex rounded-4 text-decoration-none p-2 shadow-lg gap-4">
-                    <Link to={`/${id}`}>
+                    <Link to={`/${id ? id : ''}`}>
                         <button className='pagesbtn p-2 text-decoration-none rounded-3'>
                             Home
                         </button>
@@ -71,12 +105,12 @@ const Navbar = () => {
                         </button>
                         <ul className="dropdown-menu">
                             <li>
-                                <Link to={`/anime/${id}`} className='dropdown-item'>
+                                <Link to={`/anime/${id ? id : ''}`} className='dropdown-item'>
                                     Seasonal Anime
                                 </Link>
                             </li>
                             <li>
-                                <Link to={`/anime/top/${id}`} className='dropdown-item'>
+                                <Link to={`/anime/top/${id ? id : ''}`} className='dropdown-item'>
                                     Top Anime
                                 </Link>
                             </li>
@@ -86,18 +120,18 @@ const Navbar = () => {
                                 </Link>
                             </li>
                             <li>
-                                <Link to={`/anime/search/${id}`} className='dropdown-item'>
+                                <Link to={`/anime/search/${id ? id : ''}`} className='dropdown-item'>
                                     Search Anime
                                 </Link>
                             </li>
                         </ul>
                     </div>
-                    <Link to={`/manga/${id}`}>
+                    <Link to={`/manga/${id ? id : ''}`}>
                         <button className='pagesbtn p-2 text-decoration-none rounded-3'>
                             Manga
                         </button>
                     </Link>
-                    <Link to={`/characters/${id}`}>
+                    <Link to={`/characters/${id ? id : ''}`}>
                         <button className='pagesbtn p-2 text-decoration-none rounded-3'>
                             Characters
                         </button>
@@ -119,43 +153,9 @@ const Navbar = () => {
                 </Flex>
             </nav>
             <nav id='nav1' className='navbar p-3'>
-                {/* <img src={logo} alt="" /> */}
-                <span className='fw-semibold text-white'>DedyasNime</span>
-                {/* <div className="dropdown dropstart">
-                    <a className="btn btn-primary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="true">
-                        <i className='bi bi-list'></i>
-                    </a>
-                    <ul className="dropdown-menu">
-                        <li>
-                            <Link to={"/"}>
-                                <span className='dropdown-item p-2 text-decoration-none rounded-3'>
-                                    Home
-                                </span>
-                            </Link>
-                        </li>
-                        <li>
-                            <Link to={"/anime"}>
-                                <span className='dropdown-item p-2 text-decoration-none rounded-3'>
-                                    Anime
-                                </span>
-                            </Link>
-                        </li>
-                        <li>
-                            <Link to={"/manga"}>
-                                <span className='dropdown-item p-2 text-decoration-none rounded-3'>
-                                    Manga
-                                </span>
-                            </Link>
-                        </li>
-                        <li>
-                            <Link to={"/characters"}>
-                                <span className='dropdown-item p-2 text-decoration-none rounded-3'>
-                                    Characters
-                                </span>
-                            </Link>
-                        </li>
-                    </ul>
-                </div> */}
+                <span className='fw-semibold text-white'>
+                    <HandleMobileProfile />
+                </span>
                 <button className="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling" onClick={() => handleMenu()}>
                     Menu
                     <i className='bi bi-list ms-2'></i>
@@ -167,58 +167,59 @@ const Navbar = () => {
                             DedyasNime menu</h5>
                         <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                     </div>
-                    <div id='canvas0' className="offcanvas-body d-flex flex-column ">
-                        <Link to={"/"}>
-                            <button className='pagesbtn0 w-100 p-2 text-decoration-none text-start fw-semibold d-flex justify-content-between' onClick={() => handleRefresh()}>
-                                Home
-                                <i className="bi bi-chevron-right"></i>
-                            </button>
-                        </Link>
-                        {/* <Link to={"/anime"}> */}
-                        {/* <button className='pagesbtn0 w-100 p-2 text-decoration-none text-start fw-semibold d-flex justify-content-between' onClick={() => handleRefresh()}>
-                                Anime
-                                <i className="bi bi-chevron-right"></i>
-                            </button> */}
-                        <div className="dropdown w-100">
-                            <button className="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Anime
-                            </button>
-                            <ul className="dropdown-menu">
-                                <li>
-                                    <Link to={'/anime'} className='dropdown-item' onClick={() => handleRefresh()}>
-                                        Seasonal Anime
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link to={'/anime/top'} className='dropdown-item' onClick={() => handleRefresh()}>
-                                        Top Anime
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link to={'/anime/fav'} className='dropdown-item' onClick={() => handleRefresh()}>
-                                        Favorites Anime
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link to={'/anime/search'} className='dropdown-item' onClick={() => handleRefresh()}>
-                                        Search Anime
-                                    </Link>
-                                </li>
-                            </ul>
+                    <div id='canvas0' className="offcanvas-body d-flex flex-column justify-content-between">
+                        <div className="">
+                            <Link to={`/${id ? id : ''}`}>
+                                <button className='pagesbtn0 w-100 p-2 text-decoration-none text-start fw-semibold d-flex justify-content-between' onClick={() => handleRefresh()}>
+                                    Home
+                                    <i className="bi bi-chevron-right"></i>
+                                </button>
+                            </Link>
+                            <div className="dropdown w-100">
+                                <button className="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Anime
+                                </button>
+                                <ul className="dropdown-menu">
+                                    <li>
+                                        <Link to={`/anime/${id ? id : ''}`} className='dropdown-item' onClick={() => handleRefresh()}>
+                                            Seasonal Anime
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link to={`/anime/top/${id ? id : ''}`} className='dropdown-item' onClick={() => handleRefresh()}>
+                                            Top Anime
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link to={`/anime/fav/${id ? id : ''}`} className='dropdown-item' onClick={() => handleRefresh()}>
+                                            Favorites Anime
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link to={`/anime/search/${id ? id : ''}`} className='dropdown-item' onClick={() => handleRefresh()}>
+                                            Search Anime
+                                        </Link>
+                                    </li>
+                                    <li>
+                                    </li>
+                                </ul>
+                            </div>
+                            {/* </Link> */}
+                            <Link to={`/manga/${id ? id : ''}`}>
+                                <button className='pagesbtn0 w-100 p-2 text-decoration-none text-start fw-semibold d-flex justify-content-between' onClick={() => handleRefresh()}>
+                                    Manga
+                                    <i className="bi bi-chevron-right"></i>
+                                </button>
+                            </Link>
+                            <Link to={`/characters/${id ? id : ''}`}>
+                                <button className='pagesbtn0 w-100 p-2 text-decoration-none text-start fw-semibold d-flex justify-content-between' onClick={() => handleRefresh()}>
+                                    Characters
+                                    <i className="bi bi-chevron-right"></i>
+                                </button>
+                            </Link>
+
                         </div>
-                        {/* </Link> */}
-                        <Link to={"/manga"}>
-                            <button className='pagesbtn0 w-100 p-2 text-decoration-none text-start fw-semibold d-flex justify-content-between' onClick={() => handleRefresh()}>
-                                Manga
-                                <i className="bi bi-chevron-right"></i>
-                            </button>
-                        </Link>
-                        <Link to={"/characters"}>
-                            <button className='pagesbtn0 w-100 p-2 text-decoration-none text-start fw-semibold d-flex justify-content-between' onClick={() => handleRefresh()}>
-                                Characters
-                                <i className="bi bi-chevron-right"></i>
-                            </button>
-                        </Link>
+                        <HandleMobileProfile />
                     </div>
                 </div>
                 {/* <button type='button' id='' className='btn btn-outline-dark rounded-3 p-2'>

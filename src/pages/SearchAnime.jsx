@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import LargeAnimeBox from '../assets/LargeAnimeBox'
 import AnimeSelect from '../assets/AnimeSelect'
 import Navbar from '../Navbar'
+import Aos from 'aos'
 const SearchAnime = () => {
     const [anime, setAnime] = useState([])
     const [anime0, setAnime0] = useState([])
@@ -48,7 +49,7 @@ const SearchAnime = () => {
     ]
     // setSgenre('')
     useEffect(() => {
-        // AOS.init({});
+        Aos.init({});
         setTimeout(() => {
             axios.get("https://api.jikan.moe/v4/anime?q=conan&sfw=true&genre=0")
                 .then(res => {

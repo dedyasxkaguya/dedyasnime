@@ -11,13 +11,12 @@ import Swal from 'sweetalert2'
 const DetailsAnime = () => {
     const [nime, setNime] = useState({})
     const [user, setUser] = useState()
+    const [isLogin, areLogin] = useState(false)
     const [comments, setComments] = useState([])
     const id = localStorage.getItem("idNime")
     const idNime = localStorage.getItem("idNime")
 
     const { id_user } = useParams()
-
-    console.log(idNime)
 
     const getComments = async () => {
         const fetch = await axios.get(`http://127.0.0.1:8000/api/comment/anime/${nime.mal_id}`)
@@ -34,6 +33,10 @@ const DetailsAnime = () => {
                     const fetched = data.data
                     console.log(fetched)
                     setUser(fetched)
+                    areLogin(true)
+                    if (id_user == 'undefined') {
+                        areLogin(false)
+                    }
                 })
             const fetchData = async () => {
                 const res = await axios.get(`https://api.jikan.moe/v4/anime/${idNime}/full`)
@@ -57,7 +60,7 @@ const DetailsAnime = () => {
         } catch (err) {
             console.log(err)
         }
-    }, 4000);
+    }, 2000);
 
     const getSeason = (num) => {
         if (num > 1 && num <= 3) {
@@ -97,18 +100,20 @@ const DetailsAnime = () => {
         const formData = new FormData()
         formData.append('username', user.name)
         formData.append('anime_id', nime.mal_id)
+        formData.append('anime_name', nime.title)
         formData.append('user_id', user.id)
         formData.append('comment', comment.value)
         axios.post('http://127.0.0.1:8000/api/comment/add', formData)
             .then(data => {
                 const fetched = data.data
                 console.log(fetched)
-                if(fetched){
+                if (fetched) {
                     Swal.fire({
-                        icon:'success',
-                        title:'Success',
-                        text:'Your comment has been added'
+                        icon: 'success',
+                        title: 'Success',
+                        text: 'Your comment has been added'
                     })
+                    comment.value = ''
                 }
             })
     }
@@ -220,8 +225,9 @@ const DetailsAnime = () => {
                                 })}
                             </div>
                             <div className="d-flex">
-                                <input type="text" name='comment' id='comment' placeholder='input here' className='form-control rounded-start rounded-end-0' />
-                                <button type="button" className='btn btn-primary rounded-end rounded-start-0' onClick={() => handleComment()}>Submit</button>
+                                <input type="text" name='comment' id='comment' placeholder={isLogin ? 'input here' : 'login to access this feature'} className='form-control rounded-start rounded-end-0' disabled={!isLogin} />
+                                <button type="button"
+                                    className='btn btn-primary rounded-end rounded-start-0' onClick={() => handleComment()} disabled={!isLogin}>Submit</button>
                             </div>
                         </div>
                     </div>

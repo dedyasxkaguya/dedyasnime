@@ -186,6 +186,18 @@ nav .pagesbtn0:hover {
     font-size: 12px;
 }
 
+.big-profile-images {
+    width: 20dvh !important;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+}
+
+.commentBox {
+    /* scrollbar-width: none; */
+    max-height: 50%;
+    width: fit-content;
+}
+
 .loader {
     transform: rotateZ(45deg);
     /* perspective: 1000px; */
@@ -215,6 +227,9 @@ nav .pagesbtn0:hover {
     transform: rotateY(70deg);
     animation-delay: .4s;
 }
+
+
+
 
 @keyframes scroll {
     from {
@@ -316,5 +331,9 @@ nav .pagesbtn0:hover {
 
     .title {
         text-align: center;
+    }
+
+    nav .profile-images {
+        width: 6.4dvw !important;
     }
 }

@@ -17,7 +17,7 @@
 
 ### 🎨 Pengalaman Pengguna
 - **Desain Responsif** - Optimal di semua perangkat (desktop, tablet, mobile)
-- **Animasi Halus** - Menggunakan AOS (Animate On Scroll) untuk transisi yang menarik
+- **Animasi Halus** - Menggunakan Aos (Animate On Scroll) untuk transisi yang menarik
 - **Dark/Light Mode** - Tema yang dapat disesuaikan dengan preferensi pengguna
 - **Loading Animation** - Animasi loading kustom yang menarik
 
@@ -39,7 +39,7 @@
 - **CSS3 Modern** - Custom properties, Grid, Flexbox, Animations
 
 ### Enhanced User Experience
-- **[AOS](https://michalsnik.github.io/aos/)** - Animate On Scroll library
+- **[Aos](https://michalsnik.github.io/aos/)** - Animate On Scroll library
 - **[SweetAlert2](https://sweetalert2.github.io/)** - Modal dan notifikasi yang beautiful
 
 ### Typography

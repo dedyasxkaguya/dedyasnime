@@ -26,7 +26,7 @@ const Home = () => {
 
 
   useEffect(() => {
-    // AOS.init()
+    // Aos.init()
     setTimeout(() => {
       setLoading(false)
     }, 500);
@@ -103,7 +103,7 @@ const Home = () => {
             <Flex dir="col" id="flex1">
               {anime.map((a) => {
                 return (
-                  <Smallbox img={a.images.webp.large_image_url} title={a.title} />
+                  <Smallbox img={a.images.webp.large_image_url} title={a.title} id={a.mal_id}/>
                 )
               })}
             </Flex>
@@ -113,7 +113,7 @@ const Home = () => {
             <Flex dir="col" id="flex2">
               {manga.map((a) => {
                 return (
-                  <Smallbox img={a.images.webp.large_image_url} title={a.title} />
+                  <Smallbox img={a.images.webp.large_image_url} title={a.title} id={a.mal_id}/>
                 )
               })}
             </Flex>

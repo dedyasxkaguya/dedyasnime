@@ -49,7 +49,7 @@ const TopAnime = () => {
                 <tbody>
                   {anime.map((a) => {
                     return (
-                      <AnimeTable title={a.title} images={a.images.webp.large_image_url} rank={a.rank} episodes={a.episodes} type={a.type} members={a.members} aired={a.aired.string} score={a.score} favorites={a.favorites} />
+                      <AnimeTable title={a.title} images={a.images.webp.large_image_url} rank={a.rank} episodes={a.episodes} type={a.type} members={a.members} aired={a.aired.string} score={a.score} favorites={a.favorites} id={a.mal_id}/>
                     )
                   })}
                 </tbody>
@@ -60,13 +60,12 @@ const TopAnime = () => {
                     <td scope='col'>No</td>
                     <td scope='col' className='tableTitle'>Title</td>
                     <td scope='col'>Score</td>
-                    <td scope='col'>Member</td>
                   </tr>
                 </thead>
                 <tbody>
                   {anime1.map((a) => {
                     return (
-                      <AnimeTable title={a.title} images={a.images.webp.large_image_url} rank={a.rank} episodes={a.episodes} type={a.type} members={a.members} aired={a.aired.string} score={a.score} favorites={a.favorites} />
+                      <AnimeTable title={a.title} images={a.images.webp.large_image_url} rank={a.rank} episodes={a.episodes} type={a.type} members={a.members} aired={a.aired.string} score={a.score} favorites={a.favorites} id={a.mal_id}/>
                     )
                   })}
                 </tbody>

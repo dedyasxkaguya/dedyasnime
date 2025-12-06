@@ -55,7 +55,7 @@ const Manga = () => {
               <tbody>
                 {manga.map((a) => {
                   return (
-                    <AnimeTable title={a.title} images={a.images.webp.large_image_url} rank={a.rank} episodes={a.episodes} type={a.type} members={a.members} aired={a.published.string} score={a.score} favorites={a.favorites} />
+                    <AnimeTable title={a.title} images={a.images.webp.large_image_url} rank={a.rank} episodes={a.episodes} type={a.type} members={a.members} aired={a.published.string} score={a.score} favorites={a.favorites} id={a.mal_id}/>
                   )
                 })}
               </tbody>
@@ -72,7 +72,7 @@ const Manga = () => {
               <tbody>
                 {manga1.map((a) => {
                   return (
-                    <AnimeTable title={a.title} images={a.images.webp.large_image_url} rank={a.rank} episodes={a.episodes} type={a.type} members={a.members} aired={a.published.string} score={a.score} favorites={a.favorites} />
+                    <AnimeTable title={a.title} images={a.images.webp.large_image_url} rank={a.rank} episodes={a.episodes} type={a.type} members={a.members} aired={a.published.string} score={a.score} favorites={a.favorites} id={a.mal_id}/>
                   )
                 })}
               </tbody>

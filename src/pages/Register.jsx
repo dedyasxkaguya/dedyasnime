@@ -1,5 +1,6 @@
 import axios from 'axios'
 import React from 'react'
+import { Link } from 'react-router-dom'
 import Swal from 'sweetalert2'
 
 const Register = () => {
@@ -30,14 +31,17 @@ const Register = () => {
         })
     }
     return (
-        <div>
+        <div className='d-flex align-items-center' style={{ height:'100dvh' }}>
             <form action="" className='w-75 mx-auto my-4 d-flex gap-2 flex-column p-2 shadow rounded-3'>
                 <h1>Register</h1>
                 <h6 className='fw-light'>Fill out some form to continue</h6>
-                <input type="text" id='name' className='form-control' placeholder='name'/>
-                <input type="email" id='email' className='form-control' placeholder='email'/>
-                <input type="password" id='password' className='form-control' placeholder='password'/>
+                <input type="text" id='name' className='form-control' placeholder='Name'/>
+                <input type="email" id='email' className='form-control' placeholder='Email'/>
+                <input type="password" id='password' className='form-control' placeholder='Password'/>
                 <input type="file" name="" id='file' className='form-control' accept='image/*'/>
+                <Link to={'/login'} className='text-secondary'>
+                    Already have an account ? 
+                </Link>
                 <button type="button" className='btn btn-primary' onClick={()=>handleLogin()}>Register</button>
             </form>
         </div>
