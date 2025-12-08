@@ -114,16 +114,6 @@ const Profile = () => {
                 navigation.reload()
             }, 2000);
         })
-        // const pObj = []
-
-        // pObj.push(user?.id)
-        // pObj.push(name.value)
-        // pObj.push(full_name?.id)
-        // pObj.push(image)
-        // pObj.push(nationality.value)
-        // pObj.push(flag)
-
-        // console.log(pObj)
     }
 
     const imageLink = `http://127.0.0.1:8000/${user?.image}`

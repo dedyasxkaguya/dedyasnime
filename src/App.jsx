@@ -13,6 +13,7 @@ import Register from './pages/register'
 import Login from './pages/Login'
 import Userhome from './pages/Userhomw'
 import Profile from './pages/Profile'
+import Showprofile from './pages/Showprofile'
 
 function App() {
 
@@ -40,7 +41,7 @@ function App() {
         <Route path='/register' element={<Register />}></Route>
         <Route path='/login' element={<Login />}></Route>
         <Route path='/profile/:id' element={<Profile/>}></Route>
-        <Route path='/profile/:username' element={<Profile/>}></Route>
+        <Route path='/user/:name' element={<Showprofile/>}></Route>
       </Routes>
     </>
   )

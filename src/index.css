@@ -191,6 +191,11 @@ nav .pagesbtn0:hover {
     aspect-ratio: 1/1;
     object-fit: cover;
 }
+.big-profile-images-0 {
+    width: 36dvh !important;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+}
 
 .preview-image {
     width: 3.2dvw;
@@ -356,3 +361,45 @@ nav .pagesbtn0:hover {
         width: 100dvw !important;
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
