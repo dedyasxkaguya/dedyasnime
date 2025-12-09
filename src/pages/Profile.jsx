@@ -9,6 +9,7 @@ const Profile = () => {
     const [comment, setComment] = useState([])
     const { id } = useParams()
     const [nation, setNation] = useState([])
+    const [favorites, setFavorites] = useState([])
 
     useEffect(() => {
         axios.get('https://restcountries.com/v3.1/independent?status=true&fields=name')
@@ -20,6 +21,12 @@ const Profile = () => {
             .then(data => {
                 const fetched = data.data
                 setUser(fetched)
+                axios.get(`http://127.0.0.1:8000/api/user/fav/${fetched.name}`)
+                    .then(data => {
+                        const fetch = data.data
+                        setFavorites(fetch)
+                        console.log(fetch)
+                    })
             })
         axios.get(`http://127.0.0.1:8000/api/comment/user/${id}`)
             .then(data => {
@@ -85,35 +92,35 @@ const Profile = () => {
         const full_name = document.getElementById('full_name')
         const imageElem = document.getElementById('imageElem')
         let image
-        console.log(imageElem.files.length==0)
-        if(imageElem.files.length==0){
+        console.log(imageElem.files.length == 0)
+        if (imageElem.files.length == 0) {
             console.log('blyat')
             image = null
-        }else{
+        } else {
             image = imageElem.files[0]
         }
         const nationality = document.getElementById('nationality')
         const formData = new FormData()
         formData.append('id', user?.id)
         formData.append('name', name.value)
-        formData.append('full_name', full_name.value)
+        formData.append('full_name', full_name.value ? full_name.value : user.full_name)
         formData.append('image', image)
         formData.append('nationality', nationality.value)
         formData.append('flag', flag ? flag : user?.flag)
 
-        axios.post('http://127.0.0.1:8000/api/user/update',formData)
-        .then(data=>{
-            const fetched = data.data
-            console.log(fetched)
-            Swal.fire({
-                icon:'success',
-                title:'Success',
-                text:'Succesfully change your profile information , reload in 2 second'
+        axios.post('http://127.0.0.1:8000/api/user/update', formData)
+            .then(data => {
+                const fetched = data.data
+                console.log(fetched)
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success',
+                    text: 'Succesfully change your profile information , reload in 2 second'
+                })
+                setTimeout(() => {
+                    navigation.reload()
+                }, 2000);
             })
-            setTimeout(() => {
-                navigation.reload()
-            }, 2000);
-        })
     }
 
     const imageLink = `http://127.0.0.1:8000/${user?.image}`
@@ -182,6 +189,25 @@ const Profile = () => {
                                     )
                                 })}
                             </div>
+                        </div>
+                    </div>
+                    <div className="">
+                        <span className='p-2 fw-bold'>
+                            Favorites Anime
+                        </span>
+                        <div className="favoriteBox p-2 my-2">
+                            {/* <HandleComment /> */}
+                            {favorites.map((c) => {
+                                return (
+                                    <>
+                                        <div className='p-2 my-2 rounded-4 border d-flex flex-column' >
+                                            <img src={c.image} alt="" className='rounded-2' style={{ maxWidth: '10dvw' }} />
+                                            <span className='fw-semibold text-truncate' style={{ maxWidth: '10dvw' }}>{c.title}</span>
+                                            {/* <span>{c.image}</span> */}
+                                        </div>
+                                    </>
+                                )
+                            })}
                         </div>
                     </div>
                     <div className="d-flex gap-4">

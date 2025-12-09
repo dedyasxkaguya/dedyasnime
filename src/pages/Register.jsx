@@ -16,6 +16,23 @@ const Register = () => {
             })
     }, [])
 
+    const handleUsername = (e) => {
+        const warn = document.getElementById('userwarn')
+        if(e.target.value.includes(' ')){
+            warn.style.display='inline'
+        }else{
+            warn.style.display='none'
+        }
+    }
+    const handlePassword = (e) => {
+        const warn = document.getElementById('passwordwarn')
+        if(e.target.value.length<6){
+            warn.style.display='inline'
+        }else{
+            warn.style.display='none'
+        }
+    }
+
     const handleLogin = () => {
         Swal.fire({
             icon: 'info',
@@ -99,9 +116,11 @@ const Register = () => {
                     <img src={previewUrl} alt="" className='preview-image rounded-circle border shadow' />
                 </div>
                 <h6 className='fw-light'>Fill out some form to continue</h6>
-                <input type="text" id='name' className='form-control' placeholder='Name' />
+                <input type="text" id='name' className='form-control' placeholder='Username' onChange={(e)=>handleUsername(e)}/>
+                <span style={{ fontSize:'8px' , display:'none'}} className='text-danger' id='userwarn'>Username cant have space</span>
                 <input type="email" id='email' className='form-control' placeholder='Email' />
-                <input type="password" id='password' className='form-control' placeholder='Password' />
+                <input type="password" id='password' className='form-control' placeholder='Password' onChange={(e)=>handlePassword(e)}/>
+                <span style={{ fontSize:'8px' , display:'none'}} className='text-danger' id='passwordwarn'>Password must have 6 characters</span>
                 {/* <span className='p-2 box-border bg-light border rounded-2' style={{ boxSizing: 'border-box' }}>Choose profile picture</span> */}
                 <label htmlFor="">Profile Picture <span className='text-secondary'>(optional)</span>
                     <input type="file" name="" id='file' className='form-control' accept='image/*' onChange={(e) => handleImage(e)} />

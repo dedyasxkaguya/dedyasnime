@@ -253,6 +253,8 @@
 .littleImg {
     width: 12dvw;
     height: 18dvw;
+    /* height: 100%;
+    width: 20dvw; */
     object-fit: cover;
 }
 

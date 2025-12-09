@@ -1,34 +1,96 @@
-import React, { useEffect } from 'react'
+import Aos from 'aos'
+import axios from 'axios'
+import React, { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
+import Swal from 'sweetalert2'
 
 const Animebox = (props) => {
-    let favArray = []
-    if (localStorage.getItem("favNime")) {
-        favArray = JSON.parse(localStorage.getItem("favNime"))
-    } else {
-    }
+    const { id } = useParams()
+    const [favorites, setFavorites] = useState([])
+    const [user, setUser] = useState()
     useEffect(() => {
         Aos.init({
         });
+        axios.get(`http://127.0.0.1:8000/api/user/${id}`)
+            .then(data => {
+                const fetched = data.data
+                setUser(fetched)
+                axios.get(`http://127.0.0.1:8000/api/user/fav/${fetched.name}`)
+                    .then(data => {
+                        const fetch = data.data
+                        console.log(fetch)
+                        setFavorites(fetch)
+                    })
+            })
     }, [])
-    const handleFav = (e) => {
-        if (!favArray.includes(props.data)) {
-            favArray.push(props.data)
-            localStorage.setItem("favNime", JSON.stringify(favArray))
-            e.target.classList.remove("btn-light")
-            e.target.classList.add("btn-dark")
-            swal.fire({
-                "icon":"success",
-                "title":"Berhasil",
-                "text":`${props.title} Telah ditambahkan ke anime favorit`
-            })
-        } else {
-            console.log("Data Sudah Ada Di Memory")
-            swal.fire({
-                "icon":"info",
-                "title":"Gagal",
-                "text":`${props.title} Telah ada dalam list anime favorit`
-            })
+    // let favArray = []
+    // if (localStorage.getItem("favNime")) {
+    //     favArray = JSON.parse(localStorage.getItem("favNime"))
+    // } 
+    // const handleFav = (e) => {
+    //     if (!favArray.includes(props.data)) {
+    //         favArray.push(props.data)
+    //         localStorage.setItem("favNime", JSON.stringify(favArray))
+    //         e.target.classList.remove("btn-light")
+    //         e.target.classList.add("btn-dark")
+    //         Swal.fire({
+    //             "icon":"success",
+    //             "title":"Berhasil",
+    //             "text":`${props.title} Telah ditambahkan ke anime favorit`
+    //         })
+    //     } else {
+    //         console.log("Data Sudah Ada Di Memory")
+    //         Swal.fire({
+    //             "icon":"info",
+    //             "title":"Gagal",
+    //             "text":`${props.title} Telah ada dalam list anime favorit`
+    //         })
+    //     }
+    // }
+    const handleFav = () => {
+        Swal.fire({
+            icon:'info',
+            title:'Wait A Second...',
+            showConfirmButton:false
+        })
+        let isFound = false
+        favorites.map((f) => {
+            if (f.title.toLowerCase().includes(props.title.toLowerCase())) {
+                console.log('sudah ada')
+                isFound = true
+
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: `You already add ${props.title} to your favorites`
+                })
+                return
+            }
+            return
+        })
+        if (!isFound) {
+
+            console.log('sedang mencoba')
+            const formData = new FormData()
+
+            formData.append('user_id', id)
+            formData.append('user_name', user.name)
+            formData.append('image', props.image)
+            formData.append('title', props.title)
+
+            axios.post('http://127.0.0.1:8000/api/fav/add', formData)
+                .then(data => {
+                    const fetched = data.data
+                    console.log(fetched)
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: `You succesfully add ${props.title} to your favorites`
+                    })
+                })
+            return
         }
+
     }
     return (
         <div id={props.mal_id} className='d-flex flex-column my-2 shadow rounded-4 p-1 pt-4 justify-content-between' data-aos='fade-up'>
@@ -51,8 +113,8 @@ const Animebox = (props) => {
             </div>
             <div className="d-flex justify-content-center">
                 <img src={props.image} alt="" className='animeImg m-2 rounded-3' />
-                <span className='animeDesc'>{props.description}
-                    <br /><br />
+                <div className='animeDesc d-flex flex-column justify-content-between'>
+                    {props.description}
                     <div className='infoNime d-flex flex-column p-2'>
                         <span className='infoSpan'>
                             <b>Studios : </b>
@@ -72,7 +134,7 @@ const Animebox = (props) => {
                             <b>Themes : </b>
                             {props.themes.map((theme) => {
                                 return (
-                                    <span>{theme.name} ,</span>
+                                    <span>{theme.name} , </span>
                                 )
                             })}
                         </span>
@@ -85,7 +147,7 @@ const Animebox = (props) => {
                             })}
                         </span>
                     </div>
-                </span>
+                </div>
             </div>
             <div className="d-flex pop justify-content-around align-items-center py-2 rounded-3">
                 <span>

@@ -13,6 +13,10 @@ const DetailsAnime = () => {
     const [user, setUser] = useState()
     const [isLogin, areLogin] = useState(false)
     const [comments, setComments] = useState([])
+    const [favorites, setFavorites] = useState([])
+    // const [isFav, setFav] = useState(false)
+    // const [favBtn, setBtn] = useState('Add Favorites')
+
     const id = localStorage.getItem("idNime")
     const idNime = localStorage.getItem("idNime")
 
@@ -21,9 +25,6 @@ const DetailsAnime = () => {
     const getComments = async () => {
         const fetch = await axios.get(`http://127.0.0.1:8000/api/comment/anime/${nime.mal_id}`)
         const res = await fetch.data
-        // const fetched = res.data
-        console.log(res)
-        // console.log(fetched)
         setComments(res)
     }
     useEffect(() => {
@@ -37,6 +38,14 @@ const DetailsAnime = () => {
                     if (id_user == 'undefined') {
                         areLogin(false)
                     }
+                    setTimeout(() => {
+                        axios.get(`http://127.0.0.1:8000/api/user/fav/${fetched.name}`)
+                            .then(data => {
+                                const fetched = data.data
+                                setFavorites(fetched)
+
+                            })
+                    }, 1000);
                 })
             const fetchData = async () => {
                 const res = await axios.get(`https://api.jikan.moe/v4/anime/${idNime}/full`)
@@ -91,7 +100,6 @@ const DetailsAnime = () => {
     } else if (nime.type.toLowerCase() == 'movie') {
         typeIcon = <i className='bi bi-film'></i>
     } else {
-        // eslint-disable-next-line no-unused-vars
         typeIcon = <i className='bi bi-cast'></i>
     }
 
@@ -118,6 +126,46 @@ const DetailsAnime = () => {
             })
     }
 
+    const handleFav = () => {
+        let isFound = false
+        favorites.map((f) => {
+            if (f.title.toLowerCase().includes(nime.title.toLowerCase())) {
+                console.log('sudah ada')
+                isFound = true
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: `You already add ${nime.title} to your favorites`
+                })
+                return
+            }
+            return
+        })
+        if (!isFound) {
+
+            console.log('sedang mencoba')
+            const formData = new FormData()
+
+            formData.append('user_id', id)
+            formData.append('user_name', user.name)
+            formData.append('image', image)
+            formData.append('title', nime.title)
+
+            axios.post('http://127.0.0.1:8000/api/fav/add', formData)
+                .then(data => {
+                    const fetched = data.data
+                    console.log(fetched)
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: `You succesfully add ${nime.title} to your favorites`
+                    })
+                })
+            return
+        }
+
+    }
+
     return (
         <>
             <Navbar />
@@ -127,22 +175,33 @@ const DetailsAnime = () => {
                 <div className="mainContainer bg-white">
                     <div className="detailTitle rounded-top-4 p-4">
                         <div className="rounded-4 shadow-lg p-2">
-                            <div className="d-flex">
+                            <div className="d-flex gap-2">
                                 <img src={image} alt="" className='littleImg rounded-3' />
-                                <div className="d-flex flex-column mx-2">
-                                    <span className='fs-2 fw-bold'>{nime.title}</span>
-                                    <span className='text-secondary'>
-                                        {nime.title_english}
-                                    </span>
-                                    <p className='w-50 deksSyn'>{nime.synopsis}</p>
-                                    <div className="deksGen">
-                                        <div className="genreGrid d-flex gap-2 justify-content-start">
-                                            {nime.genres?.map((genre) => {
-                                                return (
-                                                    <div className='p-2 bg bg-secondary-subtle rounded-pill text-black'>{genre.name}</div>
-                                                )
-                                            })}
+                                <div className="d-flex flex-column mx-2 gap-2 justify-content-between">
+                                    <div className="">
+                                        <span className='fs-2 fw-bold'>{nime.title}</span>
+                                        <br />
+                                        <span className='text-secondary'>
+                                            {nime.title_english} <i className='bi bi-star-fill mx-2 text-warning'></i>{nime.score} ({nime.scored_by})
+                                        </span>
+                                    </div>
+                                    <div className="">
+
+                                        <div className="deksGen">
+                                            <div className="genreGrid d-flex gap-2 justify-content-start">
+                                                {nime.genres?.map((genre) => {
+                                                    return (
+                                                        <div className='p-2 bg bg-secondary-subtle rounded-pill text-black'>{genre.name}</div>
+                                                    )
+                                                })}
+                                            </div>
                                         </div>
+                                        <br />
+                                        <button type="button" className='btn btn-outline-primary'
+                                            onClick={(e) => handleFav(e)}>
+                                            <i className='bi bi-heart mx-2'></i>
+                                            Add Favorites
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -156,7 +215,7 @@ const DetailsAnime = () => {
                         })}
                     </div>
                     <div className='p-2'>
-                        <SingleList title="Type" string={nime.type} />
+                        <SingleList title="Type" string={nime.type} typeIcon={typeIcon} />
                         <SingleList title="Episode"
                             string={nime.episodes ? nime.episodes : "1"} />
                         <SingleList title="Status" string={nime.status} />

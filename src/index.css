@@ -211,7 +211,21 @@ nav .pagesbtn0:hover {
     max-height: 50%;
     width: fit-content;
 }
-
+.favoriteBox {
+    max-width: 30dvw;
+    /* width: fit-content; */
+    display: grid;
+    gap: .5rem;
+    grid-template-columns: repeat(6 , 1fr) ;
+}
+.favoriteBox0{
+    max-width: 100dvw !important;
+    grid-template-columns: repeat(6 , 1fr) !important;
+}
+.favoriteBox img{
+    aspect-ratio: 3/4;
+    object-fit: cover;
+}
 .loader {
     transform: rotateZ(45deg);
     /* perspective: 1000px; */
