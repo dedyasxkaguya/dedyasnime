@@ -12,12 +12,16 @@ const Navbar = () => {
         id = id_user
     }
     useEffect(() => {
-        axios.get(`http://127.0.0.1:8000/api/user/${id}`)
-            .then(data => {
-                const fetched = data.data
-                setUser(fetched)
-                console.log(fetched)
-            })
+        if (id == undefined) {
+             console.log('Blyat')
+        } else {
+            axios.get(`http://127.0.0.1:8000/api/user/${id}`)
+                .then(data => {
+                    const fetched = data.data
+                    setUser(fetched)
+                    console.log(fetched)
+                })
+        }
     }, [])
 
     const handleRefresh = () => {
@@ -44,7 +48,7 @@ const Navbar = () => {
             const imageLink = `http://127.0.0.1:8000/${user?.image}`
             return (
                 <Link to={`/profile/${id ? id : ''}`} className="btn btn-light shadow p-2 rounded-pill d-flex gap-2 align-items-center">
-                    @ {user?.name}
+                    @ {user?.username}
                     <img src={imageLink} alt="" className='profile-images rounded-circle' />
                 </Link>
             )

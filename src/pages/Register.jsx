@@ -69,11 +69,21 @@ const Register = () => {
                             Swal.fire({
                                 icon: 'success',
                                 title: 'Success',
-                                text: `Successfully registered as ${fetched.data.name} ,\n redirecting in 2 seconds`
+                                text: `Successfully registered as ${fetched.data.name} ,\n redirecting in 2 seconds`,
+                                showConfirmButton: false
                             })
                             setTimeout(() => {
                                 location.href = `/${fetched.data.id}`
                             }, 2000);
+                        })
+                        .catch(err=>{
+                            console.log(err)
+                            Swal.fire({
+                                icon:'error',
+                                title:'Error',
+                                text:'There is a mistake when registering your account',
+                                footer:err.response.data.message
+                            })
                         })
                 } catch (e) {
                     Swal.fire({

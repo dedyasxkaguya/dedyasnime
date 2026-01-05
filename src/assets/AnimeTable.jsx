@@ -11,8 +11,8 @@ const AnimeTable = (props) => {
     const { id } = useParams()
 
     const handleDetail = () => {
-        localStorage.setItem('idNime',props.id)
-        location.href=`/anime/details/${id ? id : ''}`
+        // localStorage.setItem('idNime',props.id)
+        location.href=`/${id ? id : ''}/anime/details/${props.id}`
     }    
 
     return (

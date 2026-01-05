@@ -21,17 +21,17 @@ const Profile = () => {
             .then(data => {
                 const fetched = data.data
                 setUser(fetched)
-                axios.get(`http://127.0.0.1:8000/api/user/fav/${fetched.name}`)
+                axios.get(`http://127.0.0.1:8000/api/favorite/search/${fetched.id}`)
                     .then(data => {
                         const fetch = data.data
                         setFavorites(fetch)
                         console.log(fetch)
                     })
-            })
-        axios.get(`http://127.0.0.1:8000/api/comment/user/${id}`)
-            .then(data => {
-                const fetched = data.data
-                setComment(fetched)
+                    axios.get(`http://127.0.0.1:8000/api/user/comment/${fetched.id}`)
+                        .then(data => {
+                            const fetched = data.data
+                            setComment(fetched)
+                        })
             })
     }, [])
     const HandleComment = () => {
@@ -68,7 +68,8 @@ const Profile = () => {
                     icon: 'success',
                     title: 'success',
                     text: 'Redirecting to home screen',
-                    showConfirmButton: false
+                    showConfirmButton: false,
+                    toast: true
                 })
                 setTimeout(() => {
                     location.href = '/'
@@ -83,11 +84,25 @@ const Profile = () => {
             profile.src = URL.createObjectURL(file)
         }, 1000);
     }
-
+    const handleUsername = (e) => {
+        if (e.target.value.includes(' ')) {
+            document.getElementById('invalidUsername').style.display = 'block'
+        } else {
+            document.getElementById('invalidUsername').style.display = 'none'
+        }
+    }
     const handleUpdate = () => {
+
+        Swal.fire({
+            title: 'Wait a second...',
+            text: 'Fetching our API',
+            showConfirmButton: false,
+            toast: true
+        })
+
         const name = document.getElementById('name')
         if (name.value == '') {
-            name.value = user?.name
+            name.value = user?.username
         }
         const full_name = document.getElementById('full_name')
         const imageElem = document.getElementById('imageElem')
@@ -102,8 +117,8 @@ const Profile = () => {
         const nationality = document.getElementById('nationality')
         const formData = new FormData()
         formData.append('id', user?.id)
-        formData.append('name', name.value)
-        formData.append('full_name', full_name.value ? full_name.value : user.full_name)
+        formData.append('username', name.value)
+        formData.append('name', full_name.value ? full_name.value : user.name)
         formData.append('image', image)
         formData.append('nationality', nationality.value)
         formData.append('flag', flag ? flag : user?.flag)
@@ -115,23 +130,35 @@ const Profile = () => {
                 Swal.fire({
                     icon: 'success',
                     title: 'Success',
-                    text: 'Succesfully change your profile information , reload in 2 second'
+                    text: 'Succesfully change your profile information , reload in 2 second',
+                    showConfirmButton: false,
+                    toast: true
                 })
                 setTimeout(() => {
                     navigation.reload()
                 }, 2000);
             })
+            .catch(err => {
+                // console.log(err)
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'There is something wrong, ' + err.response.data.message,
+                    confirmButtonText: 'Try again',
+                    footer: err
+                })
+            })
     }
 
     const imageLink = `http://127.0.0.1:8000/${user?.image}`
-    const username = `@${user?.name}`
+    const username = `@${user?.username}`
     return (
         <>
             <Navbar />
             <div className='d-flex mobileFlex' style={{ minHeight: '90dvh' }}>
                 <div className="p-4 sideBar w-25 bg-gray d-flex align-items-center gap-4 flex-column bg-light">
                     <div className='px-4 p-2 bg-white rounded-pill shadow'>
-                        <span className='text-secondary'>Profile</span> @{user?.name}
+                        <span className='text-secondary'>Profile</span> @{user?.username}
                     </div>
                     <img src={imageLink} alt="" className='big-profile-images rounded-circle' id='profile' />
                     <label htmlFor="" className='' style={{ fontSize: '12px' }}>Change your profile picture
@@ -144,15 +171,16 @@ const Profile = () => {
                 </div>
                 <div className="mainBar p-4 d-flex flex-column justify-content-between">
                     <div className="d-flex gap-4">
-                        <div className="">
+                        <div className="col-6">
                             <span className='p-2 fw-bold'>
                                 Profile Setting
                             </span>
                             <form action="" className='p-4 d-flex gap-2 flex-column w-100'>
                                 <label>Username</label>
-                                <input type="text" id='name' placeholder={username} className='form-control' />
+                                <input type="text" id='name' placeholder={username} className='form-control' onChange={(e) => handleUsername(e)} />
+                                <span className='invalid-feedback' id='invalidUsername'>Username cant have space</span>
                                 <label>Full Name</label>
-                                <input type="text" id='full_name' placeholder={user?.full_name} className='form-control' />
+                                <input type="text" id='full_name' placeholder={user?.name} className='form-control' />
                                 <label>Email</label>
                                 <input type="email" id='email' placeholder={user?.email} className='form-control' disabled />
                                 <label>Nationality</label>
@@ -171,11 +199,11 @@ const Profile = () => {
                                 </div>
                             </form>
                         </div>
-                        <div className="">
+                        <div className="col-6">
                             <span className='p-2 fw-bold'>
                                 Top Comments
                             </span>
-                            <div className="overflow-scroll overflow-x-hidden commentBox p-2 my-2">
+                            <div className="p-2">
                                 <HandleComment />
                                 {comment.map((c) => {
                                     return (

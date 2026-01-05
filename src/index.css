@@ -206,11 +206,11 @@ nav .pagesbtn0:hover {
 .flag-image-preview{
     height: 5dvh;
 }
-.commentBox {
-    /* scrollbar-width: none; */
+/* .commentBox {
+    scrollbar-width: none;
     max-height: 50%;
     width: fit-content;
-}
+} */
 .favoriteBox {
     max-width: 30dvw;
     /* width: fit-content; */

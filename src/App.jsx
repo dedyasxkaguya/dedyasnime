@@ -34,13 +34,14 @@ function App() {
         <Route path='/anime/top/:id' element={<TopAnime />}></Route>
         <Route path='/anime/search/:id' element={<SearchAnime />}></Route>
         <Route path='/anime/fav/:id' element={<FavoriteAnime />}></Route>
-        <Route path='/anime/details/:id_user' element={<DetailsAnime />}></Route>
+        <Route path='/:id/anime/details/:id_anime' element={<DetailsAnime />}></Route>
         <Route path='/manga/:id' element={<Manga />}></Route>
         <Route path='/characters/:id' element={<Character />}></Route>
 
         <Route path='/register' element={<Register />}></Route>
         <Route path='/login' element={<Login />}></Route>
         <Route path='/profile/:id' element={<Profile/>}></Route>
+        <Route path='/:id/user/:name' element={<Showprofile/>}></Route>
         <Route path='/user/:name' element={<Showprofile/>}></Route>
       </Routes>
     </>

@@ -28,10 +28,12 @@ const Login = () => {
                         Swal.fire({
                             'icon': 'success',
                             'title': 'Success',
-                            'text': `Succesfully login as ${fetched.data.name} , redirecting in 2 seconds`
+                            'text': `Succesfully login as ${fetched.data.name} , redirecting in 2 seconds`,
+                            showConfirmButton:false,
+                            toast:true
                         })
                         setTimeout(() => {
-                            location.href = `/${fetched.data.id}`
+                            location.href = `/${fetched.data.slug}`
                         }, 2000);
                     } else {
                         Swal.fire({

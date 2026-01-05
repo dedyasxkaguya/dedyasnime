@@ -92,9 +92,12 @@ const Animebox = (props) => {
         }
 
     }
+    const handleDetail = () => {
+        location.href = `/${id}/anime/details/${props.mal_id}`
+    }
     return (
         <div id={props.mal_id} className='d-flex flex-column my-2 shadow rounded-4 p-1 pt-4 justify-content-between' data-aos='fade-up'>
-            <div className="text-center">
+            <div className="text-center" onClick={()=>handleDetail()}>
                 <h5 className='textTitle fw-semibold m-0'>{props.title}</h5>
                 <h6 className='text-secondary fw-light'>{props.engTitle}</h6>
             </div>
@@ -112,7 +115,7 @@ const Animebox = (props) => {
                 })}
             </div>
             <div className="d-flex justify-content-center">
-                <img src={props.image} alt="" className='animeImg m-2 rounded-3' />
+                <img src={props.image} alt="" className='animeImg m-2 rounded-3' onClick={()=>handleDetail()}/>
                 <div className='animeDesc d-flex flex-column justify-content-between'>
                     {props.description}
                     <div className='infoNime d-flex flex-column p-2'>

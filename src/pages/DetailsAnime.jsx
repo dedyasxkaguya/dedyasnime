@@ -13,63 +13,63 @@ const DetailsAnime = () => {
     const [user, setUser] = useState()
     const [isLogin, areLogin] = useState(false)
     const [comments, setComments] = useState([])
-    const [favorites, setFavorites] = useState([])
+    const [favorites, setFavorites] = useState()
     // const [isFav, setFav] = useState(false)
     // const [favBtn, setBtn] = useState('Add Favorites')
 
-    const id = localStorage.getItem("idNime")
-    const idNime = localStorage.getItem("idNime")
+    // const id = localStorage.getItem("id_anime")
+    // const id_anime = localStorage.getItem("id_anime")
 
-    const { id_user } = useParams()
+    const { id } = useParams()
+    const { id_anime } = useParams()
 
-    const getComments = async () => {
-        const fetch = await axios.get(`http://127.0.0.1:8000/api/comment/anime/${nime.mal_id}`)
-        const res = await fetch.data
-        setComments(res)
-    }
+    // const getComments = async () => {
+    //     const fetch = await axios.get(`http://127.0.0.1:8000/api/comment/anime/${nime.mal_id}`)
+    //     const res = await fetch.data
+    //     setComments(res)
+    // }
+    console.log(id_anime)
     useEffect(() => {
+        setFavorites([])
         setTimeout(() => {
-            axios.get(`http://127.0.0.1:8000/api/user/${id_user}`)
-                .then(data => {
-                    const fetched = data.data
-                    console.log(fetched)
-                    setUser(fetched)
-                    areLogin(true)
-                    if (id_user == 'undefined') {
-                        areLogin(false)
-                    }
-                    setTimeout(() => {
-                        axios.get(`http://127.0.0.1:8000/api/user/fav/${fetched.name}`)
+            console.log(id)
+            if (id !== 'undefined') {
+                axios.get(`http://127.0.0.1:8000/api/user/${id}`)
+                    .then(data => {
+                        const fetched = data.data
+                        console.log(fetched)
+                        setUser(fetched)
+                        areLogin(true)
+                        if (id == 'undefined') {
+                            areLogin(false)
+                        }
+                        axios.get(`https://api.jikan.moe/v4/anime/${id_anime}/full`)
+                            .then(data => {
+                                const fetched_nime = data.data
+                                setNime(fetched_nime.data)
+                            })
+                        axios.get(`http://127.0.0.1:8000/api/comment/search/${id_anime}`)
                             .then(data => {
                                 const fetched = data.data
-                                setFavorites(fetched)
-
+                                setComments(fetched)
+                                console.log(fetched)
                             })
-                    }, 1000);
-                })
-            const fetchData = async () => {
-                const res = await axios.get(`https://api.jikan.moe/v4/anime/${idNime}/full`)
-                const data = await res.data
-                setNime(data.data)
-                if (!res) {
-                    console.log("error woy")
-                }
-            }
-            if (id) {
-                fetchData()
+                    })
+            } else {
+                axios.get(`https://api.jikan.moe/v4/anime/${id_anime}/full`)
+                    .then(data => {
+                        const fetched_nime = data.data
+                        setNime(fetched_nime.data)
+                    })
+                axios.get(`http://127.0.0.1:8000/api/comment/search/${id_anime}`)
+                    .then(data => {
+                        const fetched = data.data
+                        setComments(fetched)
+                        console.log(fetched)
+                    })
             }
         }, 1000);
-    }, [idNime])
-    setTimeout(() => {
-        if (comments.length > 1) {
-            return
-        }
-        try {
-            getComments()
-        } catch (err) {
-            console.log(err)
-        }
-    }, 2000);
+    }, [id, id_anime])
 
     const getSeason = (num) => {
         if (num > 1 && num <= 3) {
@@ -119,9 +119,14 @@ const DetailsAnime = () => {
                     Swal.fire({
                         icon: 'success',
                         title: 'Success',
-                        text: 'Your comment has been added'
+                        text: 'Your comment has been added',
+                        showConfirmButton: false,
+                        toast: true
                     })
                     comment.value = ''
+                    setTimeout(() => {
+                        navigation.reload()
+                    }, 2000);
                 }
             })
     }
@@ -146,8 +151,8 @@ const DetailsAnime = () => {
             console.log('sedang mencoba')
             const formData = new FormData()
 
-            formData.append('user_id', id)
-            formData.append('user_name', user.name)
+            formData.append('user_id', user?.id)
+            // formData.append('user_name', user.name)
             formData.append('image', image)
             formData.append('title', nime.title)
 
@@ -158,7 +163,23 @@ const DetailsAnime = () => {
                     Swal.fire({
                         icon: 'success',
                         title: 'Success',
-                        text: `You succesfully add ${nime.title} to your favorites`
+                        text: `You succesfully add ${nime.title} to your favorites`,
+                        showConfirmButton: false,
+                        timer: 2000,
+                        toast: true,
+                        timerProgressBar: true
+                    })
+                })
+                .catch(err => {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: `${nime.title} already in your favorites`,
+                        footer: err,
+                        showConfirmButton: false,
+                        timer: 2000,
+                        toast: true,
+                        timerProgressBar: true
                     })
                 })
             return
@@ -186,7 +207,6 @@ const DetailsAnime = () => {
                                         </span>
                                     </div>
                                     <div className="">
-
                                         <div className="deksGen">
                                             <div className="genreGrid d-flex gap-2 justify-content-start">
                                                 {nime.genres?.map((genre) => {
@@ -196,97 +216,104 @@ const DetailsAnime = () => {
                                                 })}
                                             </div>
                                         </div>
-                                        <br />
-                                        <button type="button" className='btn btn-outline-primary'
+                                        {/* <button type="button" className='btn btn-outline-primary'
                                             onClick={(e) => handleFav(e)}>
                                             <i className='bi bi-heart mx-2'></i>
                                             Add Favorites
-                                        </button>
+                                        </button> */}
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div className="genreGrid d-flex gap-2 mx-auto justify-content-center mb-4">
-                        {nime.genres?.map((genre) => {
-                            return (
-                                <div className='p-2 bg bg-secondary-subtle rounded-pill text-black'>{genre.name}</div>
-                            )
-                        })}
-                    </div>
-                    <div className='p-2'>
-                        <SingleList title="Type" string={nime.type} typeIcon={typeIcon} />
-                        <SingleList title="Episode"
-                            string={nime.episodes ? nime.episodes : "1"} />
-                        <SingleList title="Status" string={nime.status} />
-                        <SingleList title="Aired" string={nime.aired.string} />
-                        <SingleList title="Premiered" string={premiered} />
-                        <iframe src={nime.trailer.embed_url} frameborder="0"
-                            className='w-100 rounded-3 p-2'></iframe>
-                        <List title="Producers" array={nime.producers} />
-                        <List title="Licensors" array={nime.licensors} />
-                        <List title="Studios" array={nime.studios} />
-                        <SingleList title="Source" string={nime.source} />
-                        <List title="Theme" array={nime.themes} />
-                        <List title="Demographics" array={nime.demographics} />
-                        <SingleList title="Duration" string={nime.duration} />
-                        <SingleList title="Rating" string={nime.rating} />
-                        <div className="synopsis p-2 border border-secondary-subtle rounded-2">
-                            <h5>Synopsis</h5>
-                            <p className='m-2'>{nime.synopsis}</p>
+                    <div className="row p-4">
+                        <div className='p-2 col-md-6'>
+                            <button type="button" className='btn btn-outline-primary mb-2 w-100'
+                                onClick={(e) => handleFav(e)}>
+                                <i className='bi bi-heart mx-2'></i>
+                                Add Favorites
+                            </button>
+                            <SingleList title="Type" string={nime.type} typeIcon={typeIcon} />
+                            <SingleList title="Episode"
+                                string={nime.episodes ? nime.episodes : "1"} />
+                            <SingleList title="Status" string={nime.status} />
+                            <SingleList title="Aired" string={nime.aired.string} />
+                            <SingleList title="Premiered" string={premiered} />
+                            <iframe src={nime.trailer.embed_url} frameborder="0"
+                                className='w-100 rounded-3 p-2'></iframe>
+                            <List title="Producers" array={nime.producers} />
+                            <List title="Licensors" array={nime.licensors} />
+                            <List title="Studios" array={nime.studios} />
+                            <SingleList title="Source" string={nime.source} />
+                            <List title="Theme" array={nime.themes} />
+                            <List title="Demographics" array={nime.demographics} />
+                            <SingleList title="Duration" string={nime.duration} />
+                            <SingleList title="Rating" string={nime.rating} />
                         </div>
-                        <br />
-                        <ul className="list-group">
-                            <li className="list-group-item fw-semibold">
-                                Opening & Ending
-                            </li>
-                            {nime.theme?.openings?.map((o) => {
-                                const link = `https://youtube.com/results?search_query=${o}`
-                                const linkName = o.split('"')[1]
-                                const linkArtist = o.split('"')[2]
-                                return (
-                                    <li className='list-group-item'>
-                                        <a href={link} target='_blank' className='btn btn-danger m-2'>
-                                            <i className='bi bi-youtube me-2'></i>
-                                            {linkName}
-                                        </a>
-                                        <br />
-                                        <span className='mx-2 text-secondary'>
-                                            {linkName}
-                                            {linkArtist}
-                                        </span>
-                                    </li>
-                                )
-                            })}
-                            {nime.theme?.endings?.map((o) => {
-                                const link = `https://youtube.com/results?search_query=${o}`
-                                const EndingName = o.split('"')[1]
-                                const linkArtist = o.split('"')[2]
-                                return (
-                                    <li className='list-group-item'>
-                                        <a href={link} target='_blank' className='btn btn-danger m-2'>
-                                            <i className='bi bi-youtube me-2'></i>
-                                            {EndingName}
-                                        </a><br />
-                                        <span className='mx-2 text-secondary'>{linkArtist}</span>
-                                        <br />
-                                    </li>
-                                )
-                            })}
-                        </ul>
-                        <div className="border comments shadow my-4 rounded-2 p-2 d-flex flex-column justify-content-between">
-                            <label htmlFor="comment" className='cursor-pointer'>Add your comments here</label>
-                            <div className="d-flex gap-2 flex-column py-2">
-                                {comments.map((c) => {
+                        <div className="col-md-6">
+                            <div className="synopsis p-2 border border-secondary-subtle rounded-2">
+                                <h5>Synopsis</h5>
+                                <p className='m-2'>{nime.synopsis}</p>
+                            </div>
+                            <br />
+                            <ul className="list-group">
+                                <li className="list-group-item fw-semibold">
+                                    Opening & Ending
+                                </li>
+                                {nime.theme?.openings?.map((o) => {
+                                    const link = `https://youtube.com/results?search_query=${o}`
+                                    const linkName = o.split('"')[1]
+                                    const linkArtist = o.split('"')[2]
                                     return (
-                                        <Comments id={c.id} />
+                                        <li className='list-group-item'>
+                                            <a href={link} target='_blank' className='btn btn-danger m-2'>
+                                                <i className='bi bi-youtube me-2'></i>
+                                                {linkName}
+                                            </a>
+                                            <br />
+                                            <span className='mx-2 text-secondary'>
+                                                {linkName}
+                                                {linkArtist}
+                                            </span>
+                                        </li>
                                     )
                                 })}
-                            </div>
-                            <div className="d-flex">
-                                <input type="text" name='comment' id='comment' placeholder={isLogin ? 'input here' : 'login to access this feature'} className='form-control rounded-start rounded-end-0' disabled={!isLogin} />
-                                <button type="button"
-                                    className='btn btn-primary rounded-end rounded-start-0' onClick={() => handleComment()} disabled={!isLogin}>Submit</button>
+                                {nime.theme?.endings?.map((o) => {
+                                    const link = `https://youtube.com/results?search_query=${o}`
+                                    const EndingName = o.split('"')[1]
+                                    const linkArtist = o.split('"')[2]
+                                    return (
+                                        <li className='list-group-item'>
+                                            <a href={link} target='_blank' className='btn btn-danger m-2'>
+                                                <i className='bi bi-youtube me-2'></i>
+                                                {EndingName}
+                                            </a><br />
+                                            <span className='mx-2 text-secondary'>{linkArtist}</span>
+                                            <br />
+                                        </li>
+                                    )
+                                })}
+                            </ul>
+                            <div className="comments border mt-2 rounded-2 p-2 d-flex flex-column justify-content-between">
+                                <label htmlFor="comment" className='cursor-pointer'>Add your comments here</label>
+                                <div className="d-flex gap-2 flex-column py-2">
+                                    {comments.map(c => {
+                                        return (
+                                            <div key={c.id} className='d-flex gap-2 border flex-column overflow-hidden rounded'>
+                                                <div className="d-flex gap-2 align-items-center p-2 bg-light">
+                                                    <img src={`http://127.0.0.1:8000/${c?.user?.image}`} alt="" className='comment-image rounded-circle' />
+                                                    <span>@ {c?.username}</span>
+                                                </div>
+                                                <span className='p-2 px-3'>{c?.comment}</span>
+                                            </div>
+                                        )
+                                    })}
+                                </div>
+                                <div className="d-flex">
+                                    <input type="text" name='comment' id='comment' placeholder={isLogin ? 'input here' : 'login to access this feature'} className='form-control rounded-start rounded-end-0' disabled={!isLogin} />
+                                    <button type="button"
+                                        className='btn btn-primary rounded-end rounded-start-0' onClick={() => handleComment()} disabled={!isLogin}>Submit</button>
+                                </div>
                             </div>
                         </div>
                     </div>

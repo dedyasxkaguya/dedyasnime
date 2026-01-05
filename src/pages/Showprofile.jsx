@@ -6,10 +6,10 @@ import Swal from 'sweetalert2'
 
 const Showprofile = () => {
     const [user, setUser] = useState()
-    const [comment, setComment] = useState([])
+    // const [comment, setComment] = useState([])
     const { name } = useParams()
     // const [nation, setNation] = useState([])
-    const [favorites, setFavorites] = useState([])
+    // const [favorites, setFavorites] = useState([])
 
     useEffect(() => {
         // axios.get('https://restcountries.com/v3.1/independent?status=true&fields=name')
@@ -20,26 +20,20 @@ const Showprofile = () => {
         axios.get(`http://127.0.0.1:8000/api/user/search/${name}`)
             .then(data => {
                 const fetched = data.data
-                setUser(fetched[0])
-                console.log(fetched[0].id)
-                console.log(name)
-                axios.get(`http://127.0.0.1:8000/api/comment/user/${fetched[0].id}`)
-                    .then(data => {
-                        const fetched = data.data
-                        setComment(fetched)
+                setUser(fetched)
+                if(fetched.status==false){
+                    Swal.fire({
+                        icon:'info',
+                        title:'Nothing here',
+                        text:'There is no user with username ' + name,
                     })
-                axios.get(`http://127.0.0.1:8000/api/user/fav/${name}`)
-                    .then(data => {
-                        const fetch = data.data
-                        setFavorites(fetch)
-                        console.log(fetch)
-                    })
+                }
             })
     }, [])
     const HandleComment = () => {
-        if (comment.length == 0) {
+        if (user?.comment.length == 0) {
             return (
-                `${user?.name} hasn't commented yet `
+                `${user?.username} hasn't commented yet `
             )
         }
         return
@@ -52,12 +46,12 @@ const Showprofile = () => {
             <div className='d-flex mobileFlex' style={{ minHeight: '90dvh' }}>
                 <div className="p-4 sideBar w-fit bg-gray d-flex align-items-center gap-4 flex-column bg-light">
                     <div className='px-4 p-2 bg-white rounded-pill shadow'>
-                        <span className='text-secondary'>Profile</span> @{user?.name}
+                        <span className='text-secondary'>Profile</span> @{user?.username}
                     </div>
                     <img src={imageLink} alt="" className='big-profile-images-0 rounded-circle skeleton' id='Showprofile' />
                     <div className="text-center fs-5">
                         <span>
-                            @{user?.name}
+                            @{user?.username}
                         </span>
                         <br />
                         <span className='text-secondary'>
@@ -79,7 +73,7 @@ const Showprofile = () => {
                             </span>
                             <div className="favoriteBox favoriteBox0 p-2 my-2">
                                 {/* <HandleComment /> */}
-                                {favorites.map((c) => {
+                                {user?.favorite.map((c) => {
                                     return (
                                         <>
                                             <div className='rounded-4 d-flex flex-column justify-content-center align-items-center' >
@@ -98,13 +92,15 @@ const Showprofile = () => {
                             </span>
                             <div className="overflow-scroll overflow-x-hidden commentBox p-2 my-2">
                                 <HandleComment />
-                                {comment.map((c) => {
+                                {user?.comment?.map((c) => {
                                     return (
                                         <>
                                             <div className='p-2 my-2 rounded-2 border'>
+                                                <span className='fw-light'>At: </span>
                                                 <span className='fw-semibold'>{c?.anime_name ? c?.anime_name : c.anime_id}</span>
                                                 <br />
-                                                <span>{c.comment}</span>
+                                                <span className='fw-light'>Comment: </span>
+                                                <span className='fw-semibold'>{c.comment}</span>
                                             </div>
                                         </>
                                     )

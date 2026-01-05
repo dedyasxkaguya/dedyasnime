@@ -71,23 +71,11 @@ const Home = () => {
         })
     }, 3000);
   }, [])
-  // }, [apiUrl, mangaUrl, topAnimeUrl, topManga])
   if (loading) {
     return (
       <Loading />
     )
   }
-  // const handleLeftFlex = (e) => {
-  //   let scroll = e.target.nextElementSibling.style.right
-  //   console.log(scroll)
-  //   scroll = scroll.split("%")
-  //   let nextScroll = Number(scroll[0]) + 80
-  //   if (nextScroll <= 400) {
-  //     console.log(nextScroll)
-  //     e.target.nextElementSibling.style.right = `${nextScroll}%`
-  //     console.log(e.target.nextElementSibling.style.right)
-  //   }
-  // }
   return (
     <>
       <Navbar />
