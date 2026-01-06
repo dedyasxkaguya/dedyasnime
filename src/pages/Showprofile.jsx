@@ -21,11 +21,11 @@ const Showprofile = () => {
             .then(data => {
                 const fetched = data.data
                 setUser(fetched)
-                if(fetched.status==false){
+                if (fetched.status == false) {
                     Swal.fire({
-                        icon:'info',
-                        title:'Nothing here',
-                        text:'There is no user with username ' + name,
+                        icon: 'info',
+                        title: 'Nothing here',
+                        text: 'There is no user with username ' + name,
                     })
                 }
             })
@@ -53,9 +53,8 @@ const Showprofile = () => {
                         <span>
                             @{user?.username}
                         </span>
-                        <br />
-                        <span className='text-secondary'>
-                            {user?.full_name}
+                        <span className='text-secondary mx-2'>
+                            {user?.name}
                         </span>
                     </div>
                     <label>
@@ -65,23 +64,22 @@ const Showprofile = () => {
                         </div>
                     </label>
                 </div>
-                <div className="p-4 d-flex flex-column justify-content-between" style={{ width:'100dvw' }}>
+                <div className="p-4 d-flex flex-column justify-content-between" style={{ width: '100dvw' }}>
                     <div className="d-flex gap-4 flex-column">
                         <div className="">
-                            <span className='p-2 fw-bold'>
+                            <span className='fw-bold fs-2'>
                                 Favorites Anime
                             </span>
-                            <div className="favoriteBox favoriteBox0 p-2 my-2">
+                            {/* <div className="favoriteBox favoriteBox0 p-2 my-2"> */}
+                            <div className="row">
                                 {/* <HandleComment /> */}
                                 {user?.favorite.map((c) => {
                                     return (
-                                        <>
-                                            <div className='rounded-4 d-flex flex-column justify-content-center align-items-center' >
-                                                <img src={c.image} alt="" className='rounded-2' style={{ maxWidth: '10dvw' }} />
-                                                <span className='fw-semibold text-truncate' style={{ maxWidth: '10dvw' }}>{c.title}</span>
-                                                {/* <span>{c.image}</span> */}
-                                            </div>
-                                        </>
+                                        <div className='col-md-2 col-6 rounded-4 d-flex flex-column justify-content-center align-items-center'>
+                                            <img src={c.image} alt="" className='rounded-2 w-100' style={{ aspectRatio:'4/5',objectFit:'cover' }} />
+                                            <span className='fw-semibold text-truncate w-100'>{c.title}</span>
+                                            {/* <span>{c.image}</span> */}
+                                        </div>
                                     )
                                 })}
                             </div>

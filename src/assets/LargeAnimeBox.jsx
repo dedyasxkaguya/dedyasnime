@@ -78,7 +78,7 @@ const LargeAnimeBox = (props) => {
 
     return (
         <>
-            <div className='d-flex flex-column my-2 shadow rounded-4 p-2 justify-content-center' data-aos="fade-up">
+            <div className='d-flex flex-column my-2 shadow rounded-4 p-2 justify-content-center'>
                 {/* <img src={props.image} alt="" className='animeImgLarge m-2 rounded-3' /> */}
                 <div className="text-center d-flex align-items-end rounded-4 headerAnimeImg" style={style0}>
                     <div className="titleBg p-4 d-flex justify-content-end flex-column">
@@ -150,7 +150,7 @@ const LargeAnimeBox = (props) => {
                         Add Favorites
                     </button>
                 </div>
-                <Link to={`/anime/details/${id}`} className='btn btn-outline-primary rounded-3 mt-2' onClick={() => handleId()}>
+                <Link to={`/${id}/anime/details/${props.id}`} className='btn btn-outline-primary rounded-3 mt-2' onClick={() => handleId()}>
                     <i className='bi bi-search mx-2'></i>
                     See Details
                 </Link>

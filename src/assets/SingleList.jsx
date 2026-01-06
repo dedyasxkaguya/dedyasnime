@@ -8,7 +8,7 @@ const SingleList = (props) => {
           <span className="fw-semibold">
             {props.title} :
           </span> 
-          <span>{props.string}</span> 
+          <span> {props.string}</span> 
           <span className='mx-2'>{props.typeIcon}</span>
         </li>
       </ul>

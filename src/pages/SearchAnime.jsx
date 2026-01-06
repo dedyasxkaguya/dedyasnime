@@ -259,14 +259,14 @@ const SearchAnime = () => {
                     {
                         anime.map((a) => {
                             return (
-                                <LargeAnimeBox data={a} title={a.title} image={a.images.webp.large_image_url} engTitle={a.title_english} status={a.aired.string} eps={a.episodes} epsd={a.duration} genres={a.genres} studios={a.studios} source={a.source} demographic={a.demographics} themes={a.themes} score={a.score} members={a.members} description={a.synopsis} id={a.mal_id} />
+                                <LargeAnimeBox data={a} title={a.title} image={a.images.jpg.large_image_url} engTitle={a.title_english} status={a.aired.string} eps={a.episodes} epsd={a.duration} genres={a.genres} studios={a.studios} source={a.source} demographic={a.demographics} themes={a.themes} score={a.score} members={a.members} description={a.synopsis} id={a.mal_id} />
                             )
                         })
                     }
                     {
                         anime0.map((a) => {
                             return (
-                                <LargeAnimeBox data={a} title={a.title} image={a.images.webp.large_image_url} engTitle={a.title_english} status={a.aired.string} eps={a.episodes} epsd={a.duration} genres={a.genres} studios={a.studios} source={a.source} demographic={a.demographics} themes={a.themes} score={a.score} members={a.members} description={a.synopsis} id={a.mal_id} />
+                                <LargeAnimeBox data={a} title={a.title} image={a.images.jpg.large_image_url} engTitle={a.title_english} status={a.aired.string} eps={a.episodes} epsd={a.duration} genres={a.genres} studios={a.studios} source={a.source} demographic={a.demographics} themes={a.themes} score={a.score} members={a.members} description={a.synopsis} id={a.mal_id} />
                             )
                         })
                     }

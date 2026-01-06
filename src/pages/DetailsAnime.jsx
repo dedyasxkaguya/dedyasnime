@@ -89,7 +89,7 @@ const DetailsAnime = () => {
     const month = nime.aired?.prop?.from?.month // Menggunakan Optional Chaining
     const year = nime.aired?.prop?.from?.year // Menggunakan Optional Chaining
     const season = month ? getSeason(month) : null
-    const image = nime.images?.webp?.large_image_url
+    const image = nime.images?.jpg?.large_image_url
     const premiered = season + "-" + year
     if (!nime || !nime.title) {
         return <div>Memuat data anime...</div>;
@@ -186,7 +186,16 @@ const DetailsAnime = () => {
         }
 
     }
-
+    const handleDelete = (id) => {
+        axios.get(`http://127.0.0.1:8000/api/comment/delete/${id}`)
+        .then(data=>{
+            const fetched = data.data
+            Swal.fire({icon:'success',title:'success',text:fetched,toast:true,showConfirmButton:false,timer:2000,timerProgressBar:true})
+            setTimeout(() => {
+                navigation.reload()
+            }, 3000);
+        })
+    }
     return (
         <>
             <Navbar />
@@ -196,15 +205,17 @@ const DetailsAnime = () => {
                 <div className="mainContainer bg-white">
                     <div className="detailTitle rounded-top-4 p-4">
                         <div className="rounded-4 shadow-lg p-2">
-                            <div className="d-flex gap-2">
+                            <div className="topBox d-flex gap-2 flex-md-column max-h-25">
                                 <img src={image} alt="" className='littleImg rounded-3' />
-                                <div className="d-flex flex-column mx-2 gap-2 justify-content-between">
+                                <div className="d-flex flex-column gap-2 justify-content-between">
                                     <div className="">
                                         <span className='fs-2 fw-bold'>{nime.title}</span>
                                         <br />
-                                        <span className='text-secondary'>
-                                            {nime.title_english} <i className='bi bi-star-fill mx-2 text-warning'></i>{nime.score} ({nime.scored_by})
-                                        </span>
+                                        <div className='text-secondary'>
+                                            <span>{nime.title_english}</span><br />
+                                            <span><i className='bi bi-star-fill mx-2 text-warning'></i>{nime.score} ({nime.scored_by})</span><br />
+                                            <span>{nime.broadcast?.string}</span>
+                                        </div>
                                     </div>
                                     <div className="">
                                         <div className="deksGen">
@@ -220,13 +231,20 @@ const DetailsAnime = () => {
                                             onClick={(e) => handleFav(e)}>
                                             <i className='bi bi-heart mx-2'></i>
                                             Add Favorites
-                                        </button> */}
+                                            </button> */}
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <div className="genreGrid row gap-2 align-items-center justify-content-center mt-4 d-md-none">
+                            {nime.genres?.map((genre) => {
+                                return (
+                                    <div className='col-5 p-1 bg-secondary-subtle rounded-pill text-black text-center'>{genre.name}</div>
+                                )
+                            })}
+                        </div>
                     </div>
-                    <div className="row p-4">
+                    <div className="row p-4 pt-0">
                         <div className='p-2 col-md-6'>
                             <button type="button" className='btn btn-outline-primary mb-2 w-100'
                                 onClick={(e) => handleFav(e)}>
@@ -302,7 +320,13 @@ const DetailsAnime = () => {
                                             <div key={c.id} className='d-flex gap-2 border flex-column overflow-hidden rounded'>
                                                 <div className="d-flex gap-2 align-items-center p-2 bg-light">
                                                     <img src={`http://127.0.0.1:8000/${c?.user?.image}`} alt="" className='comment-image rounded-circle' />
-                                                    <span>@ {c?.username}</span>
+                                                    <span>@ {c?.user?.username}</span>
+                                                    {c?.user?.username == user?.username && (
+                                                        <button type='button' className='btn btn-danger pointer p-0 ps-2' onClick={() => handleDelete(c.id)}>
+                                                            Delete
+                                                            <i className='bi bi-trash mx-2'></i>
+                                                        </button>
+                                                    )}
                                                 </div>
                                                 <span className='p-2 px-3'>{c?.comment}</span>
                                             </div>

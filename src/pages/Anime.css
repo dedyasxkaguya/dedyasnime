@@ -250,12 +250,21 @@
     width: 100dvw !important;
 }
 
-.littleImg {
+/* .littleImg {
     width: 12dvw;
     height: 18dvw;
-    /* height: 100%;
-    width: 20dvw; */
     object-fit: cover;
+} */
+ .topBox{
+    max-height: 80dvh;
+    overflow: hidden;
+ }
+.littleImg {
+    width: 100%;
+    height: auto;
+    max-height: 48dvh;
+    object-fit: cover;
+    object-position: top;
 }
 
 iframe {
